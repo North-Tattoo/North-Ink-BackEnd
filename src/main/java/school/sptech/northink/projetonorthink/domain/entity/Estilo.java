@@ -19,4 +19,5 @@ public class Estilo {
     private Long id;
     private String nome;
 
+    // Inserir ID do tatuador
 }

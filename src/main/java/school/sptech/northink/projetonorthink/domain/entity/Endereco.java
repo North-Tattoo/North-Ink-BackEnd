@@ -19,7 +19,11 @@ public class Endereco {
     private Integer numero;
     private String complemento;
     private String CEP;
+    private String bairro;
+    private String cidade;
+    private String estado;
 
+    // inseir o id do estudio
 
 
 

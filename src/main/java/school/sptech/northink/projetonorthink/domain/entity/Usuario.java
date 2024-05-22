@@ -28,6 +28,9 @@ public class Usuario {
     private String senha;
     private String resumo;
     private List<String> estilos;
+    private List<String> anosExperiencia;
+    private String precoMinimo;
+    private String instagram;
 
 
 }

@@ -17,8 +17,7 @@ public class DescricaoTatuagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tatuagemDescricao;
-    private Integer tatuagemTamanho;
-    private Double tatuagemPreco;
+    private String estilo;
+    private Double preco;
 
 }
