@@ -13,6 +13,5 @@ public class EstudioListagemDto {
     private Long id;
     private String nome;
     private String descricao;
-    private Double precoMin;
-    private Double anosExperiencia;
+
 }

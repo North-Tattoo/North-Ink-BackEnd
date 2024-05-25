@@ -1,9 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,5 +16,7 @@ public class Tatuagem {
     private Long id;
     private String estilo;
     private Double preco;
-
+    @ManyToOne
+    private Usuario fkUsuario;
+    // um usuario pode ter 1 ou mais tatuagens cadastradas
 }

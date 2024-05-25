@@ -2,6 +2,7 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuag
 
 public class TatuagemListagemDto {
 
+
     private String estilo;
     private Double preco;
 

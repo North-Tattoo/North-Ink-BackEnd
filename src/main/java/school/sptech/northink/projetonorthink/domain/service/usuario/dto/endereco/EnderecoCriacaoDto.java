@@ -10,28 +10,26 @@ import lombok.Setter;
 public class EnderecoCriacaoDto {
 
     @NotNull
-    @Min(8)
-    private String CEP;
-
-    @NotNull
     private String rua;
 
     @NotNull
-    private String bairro;
+    private Integer numero;
 
     @NotNull
     @Size(max = 30)
     private String complemento;
 
     @NotNull
-    private Integer numero;
+    @Min(8)
+    private String CEP;
 
     @NotNull
-    private String estado;
+    private String bairro;
 
     @NotNull
     private String cidade;
 
-
+    @NotNull
+    private String estado;
 
 }

@@ -19,6 +19,7 @@ public class Estudio {
     private Long id;
     private String nome;
     private String descricao;
-
-    // aqui vai o ID do tatuador
+    @OneToOne
+    private Usuario fkUsuario;
+    // um usuario tem somente um estudio
 }

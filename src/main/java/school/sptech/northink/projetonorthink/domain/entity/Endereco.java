@@ -1,8 +1,5 @@
 package school.sptech.northink.projetonorthink.domain.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,14 +12,15 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String CEP;
     private String rua;
-    private String bairro;
-    private String complemento;
     private Integer numero;
-    private String estado;
+    private String complemento;
+    private String CEP;
+    private String bairro;
     private String cidade;
+    private String estado;
+    @OneToOne
+    private Estudio fkEstudio;
 
 
-    // inseir o id do estudio
 }
