@@ -3,6 +3,7 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class EnderecoCriacaoDto {
     private String complemento;
 
     @NotNull
-    @Min(8)
+    @Min(value = 8)
     private String CEP;
 
     @NotNull
@@ -32,4 +33,5 @@ public class EnderecoCriacaoDto {
     @NotNull
     private String estado;
 
+    private Estudio fkEstudio;
 }

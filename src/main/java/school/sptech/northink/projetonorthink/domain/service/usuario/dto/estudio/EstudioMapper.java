@@ -30,7 +30,6 @@ public class EstudioMapper {
 
         EstudioListagemDto estudioListagemDto = new EstudioListagemDto();
 
-        estudioListagemDto.setId(estudio.getId());
         estudioListagemDto.setNome(estudio.getNome());
         estudioListagemDto.setDescricao(estudio.getDescricao());
 
@@ -45,6 +44,7 @@ public class EstudioMapper {
 
         estudio.setNome(estudioCriacaoDto.getNome());
         estudio.setDescricao(estudioCriacaoDto.getDescricao());
+        estudio.setFkUsuario(estudioCriacaoDto.getFkUsuario());
 
         return estudio;
     }
