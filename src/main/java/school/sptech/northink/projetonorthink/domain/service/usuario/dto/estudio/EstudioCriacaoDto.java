@@ -16,18 +16,9 @@ public class EstudioCriacaoDto {
     @NotNull
     private String nome;
 
-    @Email
-    @NotNull
-    private String email;
-
     @Size(max = 500)
     private String descricao;
 
-    @NotNull
-    private Double precoMin;
-
-    @NotNull
-    private Double anosExperiencia;
 
 
 }

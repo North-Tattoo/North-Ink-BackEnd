@@ -8,10 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class EstudioAtualizacaoDto {
 
-
     private String nome;
-    private String email;
     private String descricao;
-    private Double precoMin;
-    private Double anosExperiencia;
+
 }

@@ -17,10 +17,8 @@ public class EstudioMapper {
         Estudio estudio = new Estudio();
 
             estudio.setNome(estudioCriacaoDto.getNome());
-            estudio.setEmail(estudioCriacaoDto.getEmail());
             estudio.setDescricao(estudioCriacaoDto.getDescricao());
-            estudio.setPrecoMin(estudioCriacaoDto.getPrecoMin());
-            estudio.setAnosExperiencia(estudioCriacaoDto.getAnosExperiencia());
+
 
         return estudio;
     }
@@ -35,8 +33,6 @@ public class EstudioMapper {
         estudioListagemDto.setId(estudio.getId());
         estudioListagemDto.setNome(estudio.getNome());
         estudioListagemDto.setDescricao(estudio.getDescricao());
-        estudioListagemDto.setPrecoMin(estudio.getPrecoMin());
-        estudioListagemDto.setAnosExperiencia(estudio.getAnosExperiencia());
 
         return estudioListagemDto;
     }
@@ -48,10 +44,7 @@ public class EstudioMapper {
         Estudio estudio = new Estudio();
 
         estudio.setNome(estudioCriacaoDto.getNome());
-        estudio.setEmail(estudioCriacaoDto.getEmail());
         estudio.setDescricao(estudioCriacaoDto.getDescricao());
-        estudio.setPrecoMin(estudioCriacaoDto.getPrecoMin());
-        estudio.setAnosExperiencia(estudioCriacaoDto.getAnosExperiencia());
 
         return estudio;
     }
@@ -63,10 +56,8 @@ public class EstudioMapper {
     public static Estudio atualizarEstudio(Estudio estudioExistente, EstudioAtualizacaoDto estudioAtualizacaoDto) {
 
         estudioExistente.setNome(estudioAtualizacaoDto.getNome());
-        estudioExistente.setEmail(estudioAtualizacaoDto.getEmail());
         estudioExistente.setDescricao(estudioAtualizacaoDto.getDescricao());
-        estudioExistente.setPrecoMin(estudioAtualizacaoDto.getPrecoMin());
-        estudioExistente.setAnosExperiencia(estudioAtualizacaoDto.getAnosExperiencia());
+
 
         return estudioExistente;
     }

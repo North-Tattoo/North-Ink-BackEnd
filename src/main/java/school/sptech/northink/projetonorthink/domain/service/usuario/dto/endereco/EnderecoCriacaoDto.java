@@ -1,7 +1,5 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,14 +10,28 @@ import lombok.Setter;
 public class EnderecoCriacaoDto {
 
     @NotNull
-    private String logradouro;
+    @Min(8)
+    private String CEP;
+
     @NotNull
-    private Integer numero;
+    private String rua;
+
+    @NotNull
+    private String bairro;
+
     @NotNull
     @Size(max = 30)
     private String complemento;
 
     @NotNull
-    private String cep;
+    private Integer numero;
+
+    @NotNull
+    private String estado;
+
+    @NotNull
+    private String cidade;
+
+
 
 }

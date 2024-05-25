@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class DescricaoTatuagem {
+public class Tatuagem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
