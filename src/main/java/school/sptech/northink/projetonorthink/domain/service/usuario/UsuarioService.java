@@ -12,6 +12,7 @@ import school.sptech.northink.projetonorthink.api.configuration.security.jwt.Ger
 import school.sptech.northink.projetonorthink.api.util.GerenciadorDeArquivoCSV;
 import school.sptech.northink.projetonorthink.api.util.ListaObj;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
+import school.sptech.northink.projetonorthink.domain.repository.TatuagemRepository;
 import school.sptech.northink.projetonorthink.domain.repository.UsuarioRepository;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioLoginDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
@@ -38,6 +39,7 @@ public class UsuarioService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;

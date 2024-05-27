@@ -1,5 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
 
@@ -19,7 +20,6 @@ public class UsuarioMapper {
         usuario.setEmail(usuarioCriacaoDto.getEmail());
         usuario.setSenha(usuarioCriacaoDto.getSenha());
         usuario.setResumo(usuarioCriacaoDto.getResumo());
-        usuario.setEstilos(usuarioCriacaoDto.getEstilos());
 
         return usuario;
     }
@@ -49,32 +49,31 @@ public class UsuarioMapper {
         usuarioListagemDto.setEmail(usuario.getEmail());
         usuarioListagemDto.setSenha(usuario.getSenha());
         usuarioListagemDto.setResumo(usuario.getResumo());
-        usuarioListagemDto.setEstilos(usuario.getEstilos());
+        usuarioListagemDto.setAnosExperiencia(usuario.getAnosExperiencia());
+        usuarioListagemDto.setPrecoMinimo(usuario.getPrecoMinimo());
+        usuarioListagemDto.setInstagram(usuario.getInstagram());
+
+        usuario.setEstilos(usuario.getEstilos());
+
 
         return usuarioListagemDto;
     }
 
     // convertendo uma dto para um entidade
-    public static Usuario toEntity(UsuarioCriacaoDto usuarioCriacaoDto) {
-        if (usuarioCriacaoDto == null) return null;
+    private static List<UsuarioListagemDto.EstiloDto> toEstiloDto(List<Estilo> entities) {
+        return entities.stream().map(e -> {
 
-        Usuario usuario = new Usuario();
+            UsuarioListagemDto.EstiloDto dto = new UsuarioListagemDto.EstiloDto();
 
-        usuario.setNome(usuarioCriacaoDto.getNome());
-        usuario.setSobrenome(usuarioCriacaoDto.getSobrenome());
-        usuario.setCpf(usuarioCriacaoDto.getCpf());
-        usuario.setCelular(usuarioCriacaoDto.getCelular());
-        usuario.setEmail(usuarioCriacaoDto.getEmail());
-        usuario.setSenha(usuarioCriacaoDto.getSenha());
-        usuario.setResumo(usuarioCriacaoDto.getResumo());
-        usuario.setEstilos(usuarioCriacaoDto.getEstilos());
+            dto.setId(e.getId());
+            dto.setNome(e.getNome());
 
-        return usuario;
+            return dto;
+        }).toList();
     }
 
     // Método sobrecarregado para mapear uma lista de entidades em uma lista de DTOs
     public static List<UsuarioListagemDto> toDto(List<Usuario> entities) {
-        // Aqui é utilizado um método que mapea um a um e reutilizado para poder fazer a passagem de lista sem duplicar código
         return entities.stream().map(UsuarioMapper::toDto).toList();
     }
 
@@ -88,7 +87,7 @@ public class UsuarioMapper {
         usuarioExistente.setEmail(usuarioAtualizacaoDto.getEmail());
         usuarioExistente.setSenha(usuarioAtualizacaoDto.getSenha());
         usuarioExistente.setResumo(usuarioAtualizacaoDto.getSobreMim());
-        usuarioExistente.setEstilos(usuarioAtualizacaoDto.getEstilos());
+
 
         return usuarioExistente;
     }
