@@ -52,14 +52,12 @@ public class UsuarioMapper {
         usuarioListagemDto.setAnosExperiencia(usuario.getAnosExperiencia());
         usuarioListagemDto.setPrecoMinimo(usuario.getPrecoMinimo());
         usuarioListagemDto.setInstagram(usuario.getInstagram());
-
-        usuario.setEstilos(usuario.getEstilos());
-
+        usuarioListagemDto.setEstilos(usuario.getEstilos());
+        usuarioListagemDto.setTatuagens(usuario.getTatuagens());
 
         return usuarioListagemDto;
     }
 
-    // convertendo uma dto para um entidade
     private static List<UsuarioListagemDto.EstiloDto> toEstiloDto(List<Estilo> entities) {
         return entities.stream().map(e -> {
 

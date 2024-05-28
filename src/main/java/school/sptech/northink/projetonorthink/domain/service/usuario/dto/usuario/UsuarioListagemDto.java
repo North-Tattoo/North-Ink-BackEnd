@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
+import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
 
 import java.util.List;
 
@@ -24,11 +26,19 @@ public class UsuarioListagemDto {
     private String anosExperiencia;
     private String precoMinimo;
     private String instagram;
-    private List<String> estilos;
+    private List<Estilo> estilos;
+    private List<Tatuagem> tatuagens;
 
     @Data
     public static class EstiloDto{
         private Long id;
         private String nome;
+    }
+
+    @Data
+    public static class TatuagemDto{
+        private Long id;
+        private String estilo;
+        private Double preco;
     }
 }

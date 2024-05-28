@@ -16,4 +16,5 @@ public class EstudioListagemDto {
     private String nome;
     private String descricao;
     private Usuario fkUsuario;
+
 }

@@ -4,6 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
+import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
 
 import java.util.List;
 
@@ -40,6 +42,15 @@ public class UsuarioCriacaoDto {
     @Size(min = 50, max = 500)
     private String resumo;
 
-    private List<String> estilos;
+    private String anosExperiencia;
 
+    @NotNull
+    @NotBlank
+    private Double precoMinimo;
+
+    private String instagram;
+
+    private List<Estilo> estilos;
+
+    private List<Tatuagem> tatuagens;
 }
