@@ -24,7 +24,7 @@ public class Usuario {
     private String email;
     private String senha;
     private String resumo;
-    private List<String> estilos;
+    private List<String> estilo;
     private List<String> anosExperiencia;
     private Double precoMinimo;
     private String instagram;
