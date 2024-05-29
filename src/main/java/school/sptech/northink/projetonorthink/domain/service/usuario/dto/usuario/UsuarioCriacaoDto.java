@@ -40,6 +40,14 @@ public class UsuarioCriacaoDto {
     @Size(min = 50, max = 500)
     private String resumo;
 
+    private Double precoMinimo;
+
+    private List<String> anosExperiencia;
+
+    private String instagram;
+
     private List<String> estilos;
+
+
 
 }

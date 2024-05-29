@@ -29,7 +29,7 @@ public class Usuario {
     private String resumo;
     private List<String> estilos;
     private List<String> anosExperiencia;
-    private String precoMinimo;
+    private Double precoMinimo;
     private String instagram;
 
 

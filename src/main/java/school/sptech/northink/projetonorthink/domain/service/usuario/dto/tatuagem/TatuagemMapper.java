@@ -1,13 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem;
 
-import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
-import school.sptech.northink.projetonorthink.domain.entity.Usuario;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioAtualizacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioMapper;
 
 import java.util.List;
 

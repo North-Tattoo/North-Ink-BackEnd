@@ -3,9 +3,6 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.endere
 import school.sptech.northink.projetonorthink.domain.entity.Endereco;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloAtualizacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloMapper;
 
 import java.util.List;
 
