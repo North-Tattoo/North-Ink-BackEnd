@@ -4,6 +4,7 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuari
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 
 import java.util.List;
 
@@ -12,14 +13,13 @@ import java.util.List;
 @NoArgsConstructor
 public class UsuarioAtualizacaoDto {
 
-    // metodo com os atributos que serão atualizados, exceto o ID
+
     private String nome;
     private String sobrenome;
-    private String cpf;
-    private String celular;
     private String email;
     private String senha;
-    private String sobreMim;
-    private List<String> estilos;
+    private String novaSenha;
+    private String celular;
+
 
 }

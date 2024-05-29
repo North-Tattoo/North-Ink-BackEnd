@@ -24,7 +24,7 @@ public class UsuarioListagemDto {
     private String senha;
     private String resumo;
     private String anosExperiencia;
-    private String precoMinimo;
+    private Double precoMinimo;
     private String instagram;
     private List<Estilo> estilos;
     private List<Tatuagem> tatuagens;

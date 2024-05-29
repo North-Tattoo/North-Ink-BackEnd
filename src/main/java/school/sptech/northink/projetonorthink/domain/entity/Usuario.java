@@ -28,6 +28,7 @@ public class Usuario {
     private List<String> anosExperiencia;
     private Double precoMinimo;
     private String instagram;
+    private String novaSenha;
 
     @OneToMany(mappedBy = "estilo")
     private List<Estilo> estilos;

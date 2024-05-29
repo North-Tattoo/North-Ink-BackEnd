@@ -8,5 +8,8 @@ public class UsuarioFiltrosDto {
 
     private Double precoMin;
     private List<Estilo> estilos;
-
+    private String nome;
+    private String bairro;
+    private String CEP;
+    private String cidade;
 }

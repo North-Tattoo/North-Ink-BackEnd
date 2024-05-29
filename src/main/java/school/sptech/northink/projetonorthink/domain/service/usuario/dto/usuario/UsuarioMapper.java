@@ -49,7 +49,6 @@ public class UsuarioMapper {
         usuarioListagemDto.setEmail(usuario.getEmail());
         usuarioListagemDto.setSenha(usuario.getSenha());
         usuarioListagemDto.setResumo(usuario.getResumo());
-        usuarioListagemDto.setAnosExperiencia(usuario.getAnosExperiencia());
         usuarioListagemDto.setPrecoMinimo(usuario.getPrecoMinimo());
         usuarioListagemDto.setInstagram(usuario.getInstagram());
         usuarioListagemDto.setEstilos(usuario.getEstilos());
@@ -80,12 +79,10 @@ public class UsuarioMapper {
         // Atualize os campos do usuário existente com base nos dados do DTO de atualização
         usuarioExistente.setNome(usuarioAtualizacaoDto.getNome());
         usuarioExistente.setSobrenome(usuarioAtualizacaoDto.getSobrenome());
-        usuarioExistente.setCpf(usuarioAtualizacaoDto.getCpf());
-        usuarioExistente.setCelular(usuarioAtualizacaoDto.getCelular());
         usuarioExistente.setEmail(usuarioAtualizacaoDto.getEmail());
         usuarioExistente.setSenha(usuarioAtualizacaoDto.getSenha());
-        usuarioExistente.setResumo(usuarioAtualizacaoDto.getSobreMim());
-
+        usuarioExistente.setNovaSenha(usuarioAtualizacaoDto.getNovaSenha());
+        usuarioExistente.setCelular(usuarioAtualizacaoDto.getCelular());
 
         return usuarioExistente;
     }

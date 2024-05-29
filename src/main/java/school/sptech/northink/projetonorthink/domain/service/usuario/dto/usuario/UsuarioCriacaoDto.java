@@ -48,9 +48,12 @@ public class UsuarioCriacaoDto {
     @NotBlank
     private Double precoMinimo;
 
+    @NotNull
     private String instagram;
 
+    @NotNull
     private List<Estilo> estilos;
 
+    @NotNull
     private List<Tatuagem> tatuagens;
 }
