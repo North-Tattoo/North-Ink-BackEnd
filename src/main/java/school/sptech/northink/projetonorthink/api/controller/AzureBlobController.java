@@ -1,5 +1,7 @@
 package school.sptech.northink.projetonorthink.api.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,9 @@ public class AzureBlobController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("File is empty.");
+        }
         azureBlobService.uploadFile(file);
         return ResponseEntity.ok("File uploaded successfully.");
     }
@@ -27,7 +32,17 @@ public class AzureBlobController {
     @GetMapping("/download/{fileName}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
         byte[] fileData = azureBlobService.downloadFile(fileName);
-        return ResponseEntity.ok(fileData);
+        if (fileData == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", fileName);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(fileData);
     }
 
     @GetMapping("/list")

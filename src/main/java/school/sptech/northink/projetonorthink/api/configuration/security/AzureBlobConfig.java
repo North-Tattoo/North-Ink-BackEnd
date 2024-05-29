@@ -1,4 +1,5 @@
 package school.sptech.northink.projetonorthink.api.configuration.security;
+
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.BlobContainerClient;
@@ -10,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AzureBlobConfig {
 
-    @Value("${storagenorthink}")
+    @Value("${azure.storage.account-name}")
     private String accountName;
 
-    @Value("${amaBLvDVPkaVUeYMblFl5aggc5+6YtiD0FmfEgTy0UOZ8GIj/9cBH5PRWwLv/haKeU/2dMVQudR/+AStbBX59g==}")
+    @Value("${azure.storage.account-key}")
     private String accountKey;
 
-    @Value("${https://storagenorthink.blob.core.windows.net/imagens}")
+    @Value("${azure.storage.endpoint}")
     private String endpoint;
 
     @Bean
@@ -29,7 +30,6 @@ public class AzureBlobConfig {
 
     @Bean
     public BlobContainerClient blobContainerClient(BlobServiceClient blobServiceClient) {
-
         return blobServiceClient.getBlobContainerClient("imagens");
     }
 }

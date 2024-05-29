@@ -1,9 +1,12 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
+import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
 
 import java.util.List;
 
@@ -12,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UsuarioListagemDto {
 
+    private Long id;
     private String nome;
     private String sobrenome;
     private String cpf;
@@ -19,5 +23,22 @@ public class UsuarioListagemDto {
     private String email;
     private String senha;
     private String resumo;
-    private List<String> estilos;
+    private String anosExperiencia;
+    private String precoMinimo;
+    private String instagram;
+    private List<Estilo> estilos;
+    private List<Tatuagem> tatuagens;
+
+    @Data
+    public static class EstiloDto{
+        private Long id;
+        private String nome;
+    }
+
+    @Data
+    public static class TatuagemDto{
+        private Long id;
+        private String estilo;
+        private Double preco;
+    }
 }
