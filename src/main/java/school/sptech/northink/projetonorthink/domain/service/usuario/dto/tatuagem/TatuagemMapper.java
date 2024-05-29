@@ -1,13 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem;
 
-import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
-import school.sptech.northink.projetonorthink.domain.entity.Usuario;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioAtualizacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioMapper;
 
 import java.util.List;
 
@@ -44,6 +37,25 @@ public class TatuagemMapper {
 
 
         return tatuagemExistente;
+    }
+
+    private static TatuagemListagemDto.UsuarioDto toDiretorDto(Usuario entity) {
+        if (entity == null) return null;
+
+        TatuagemListagemDto.UsuarioDto usuarioDto = new TatuagemListagemDto.UsuarioDto();
+        usuarioDto.setId(entity.getId());
+        usuarioDto.setNome(entity.getNome());
+        usuarioDto.setSobrenome(entity.getSobrenome());
+        usuarioDto.setCpf(entity.getCpf());
+        usuarioDto.setCelular(entity.getCelular());
+        usuarioDto.setEmail(entity.getEmail());
+        usuarioDto.setSenha(entity.getSenha());
+        usuarioDto.setResumo(entity.getResumo());
+        usuarioDto.setAnosExperiencia(entity.getAnosExperiencia());
+        usuarioDto.setPrecoMinimo(entity.getPrecoMinimo());
+        usuarioDto.setInstagram(entity.getInstagram());
+
+        return usuarioDto;
     }
 
     public static List<TatuagemListagemDto> toDto(List<Tatuagem> entities) {

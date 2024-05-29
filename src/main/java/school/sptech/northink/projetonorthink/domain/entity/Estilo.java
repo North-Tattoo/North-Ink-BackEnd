@@ -15,8 +15,7 @@ public class Estilo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
     @ManyToOne
     private Usuario fkUsuario;
-
-    // Inserir ID do tatuador
 }

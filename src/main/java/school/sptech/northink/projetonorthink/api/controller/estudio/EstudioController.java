@@ -10,7 +10,6 @@ import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 import school.sptech.northink.projetonorthink.domain.repository.EstudioRepository;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioAtualizacaoDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioListagemDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioMapper;
 
 import java.util.List;

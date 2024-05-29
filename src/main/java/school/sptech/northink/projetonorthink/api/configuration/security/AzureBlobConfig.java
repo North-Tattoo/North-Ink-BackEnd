@@ -1,4 +1,5 @@
 package school.sptech.northink.projetonorthink.api.configuration.security;
+
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.BlobContainerClient;
@@ -29,7 +30,6 @@ public class AzureBlobConfig {
 
     @Bean
     public BlobContainerClient blobContainerClient(BlobServiceClient blobServiceClient) {
-
         return blobServiceClient.getBlobContainerClient("imagens");
     }
 }
