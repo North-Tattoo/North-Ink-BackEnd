@@ -17,8 +17,3 @@ services:
 volumes:
   mysql-data:
 
-azure:
-  storage:
-    account-name: <storagenorthink>
-    account-key: <amaBLvDVPkaVUeYMblFl5aggc5+6YtiD0FmfEgTy0UOZ8GIj/9cBH5PRWwLv/haKeU/2dMVQudR/+AStbBX59g==>
-    endpoint: <https://storagenorthink.blob.core.windows.net/imagens>
