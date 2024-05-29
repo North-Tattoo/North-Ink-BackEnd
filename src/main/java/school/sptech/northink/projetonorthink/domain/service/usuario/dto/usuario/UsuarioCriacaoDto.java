@@ -1,4 +1,4 @@
-package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
+ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;
