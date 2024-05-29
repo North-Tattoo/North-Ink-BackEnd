@@ -24,25 +24,25 @@ public class EstiloMapper {
         return estiloListagemDto;
     }
 
-    public static EstiloListagemDto.UsuarioDto toUsuarioDto(Usuario entity) {
-        if (entity == null) return null;
+//    public static EstiloListagemDto.UsuarioDto toUsuarioDto(Usuario entity) {
+//        if (entity == null) return null;
 
-        EstiloListagemDto.UsuarioDto usuarioDto = new EstiloListagemDto.UsuarioDto();
-
-        usuarioDto.setId(entity.getId());
-        usuarioDto.setNome(entity.getNome());
-        usuarioDto.setSobrenome(entity.getSobrenome());
-        usuarioDto.setCpf(entity.getCpf());
-        usuarioDto.setCelular(entity.getCelular());
-        usuarioDto.setEmail(entity.getEmail());
-        usuarioDto.setSenha(entity.getSenha());
-        usuarioDto.setResumo(entity.getResumo());
-        usuarioDto.setAnosExperiencia(entity.getAnosExperiencia());
-        usuarioDto.setPrecoMinimo(entity.getPrecoMinimo());
-        usuarioDto.setInstagram(entity.getInstagram());
-
-        return usuarioDto;
-    }
+//        EstiloListagemDto.UsuarioDto usuarioDto = new EstiloListagemDto.UsuarioDto();
+//
+//        usuarioDto.setId(entity.getId());
+//        usuarioDto.setNome(entity.getNome());
+//        usuarioDto.setSobrenome(entity.getSobrenome());
+//        usuarioDto.setCpf(entity.getCpf());
+//        usuarioDto.setCelular(entity.getCelular());
+//        usuarioDto.setEmail(entity.getEmail());
+//        usuarioDto.setSenha(entity.getSenha());
+//        usuarioDto.setResumo(entity.getResumo());
+//        usuarioDto.setAnosExperiencia(entity.getAnosExperiencia());
+//        usuarioDto.setPrecoMinimo(entity.getPrecoMinimo());
+//        usuarioDto.setInstagram(entity.getInstagram());
+//
+//        return usuarioDto;
+//    }
 
     public static Estilo atualizarEstilo(Estilo estiloExistente, EstiloAtualizacaoDto estiloAtualizacaoDto) {
 
