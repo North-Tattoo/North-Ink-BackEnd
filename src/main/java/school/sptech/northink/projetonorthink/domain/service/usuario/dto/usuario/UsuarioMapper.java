@@ -1,10 +1,13 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public class UsuarioMapper {
 
@@ -87,4 +90,11 @@ public class UsuarioMapper {
         return usuarioExistente;
     }
 
+    public static UsuarioFotoDto of(Usuario u) {
+        return new UsuarioFotoDto(
+                u.getId(),
+                u.getNome(),
+                u.getFotoPerfil()
+        );
+    }
 }

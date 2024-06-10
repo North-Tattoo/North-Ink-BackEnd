@@ -40,5 +40,6 @@ public class UsuarioListagemDto {
         private Long id;
         private String estilo;
         private Double preco;
+        private String Descricao;
     }
 }

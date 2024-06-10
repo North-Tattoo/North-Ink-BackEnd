@@ -19,8 +19,9 @@ public class Endereco {
     private String bairro;
     private String cidade;
     private String estado;
+
     @OneToOne
-    private Estudio fkEstudio;
+    private Estudio estudio;
 
 
 }

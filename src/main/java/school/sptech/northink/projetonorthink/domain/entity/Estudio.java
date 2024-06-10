@@ -1,7 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +18,10 @@ public class Estudio {
     private Long id;
     private String nome;
     private String descricao;
+
     @OneToOne
-    private Usuario fkUsuario;
-    // um usuario tem somente um estudio
+    private Usuario usuario;
+
+    @OneToOne
+    private Endereco endereco;
 }

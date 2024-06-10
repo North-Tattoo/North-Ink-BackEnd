@@ -1,22 +1,37 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
+import lombok.Data;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
+import school.sptech.northink.projetonorthink.domain.entity.Estudio;
+
 import java.util.List;
+
+@Data
 
 public class UsuarioListagemPortfolioDto {
 
+    private String fotoPerfil;
     private String nome;
     private Double valorMin;
     private List<String> anosExperiencia;
     private String resumo;
-    private List<String> estilos;
-    private String nomeEstudio;
-    private String rua;
-    private Integer numero;
-    private String bairro;
     private String descricao;
     private String instagram;
 
-    // esses serão os dados que serão mostrados no portfolio do nosso usuario
+    private List<Estilo> estilos;
+
+    private Estudio estudio;
+
+    @Data
+    public static class EstiloDto{
+        private Integer id;
+        private String nome;
+    }
+
+    @Data
+    public static class estudioDto{
+
+    }
 
 }
 

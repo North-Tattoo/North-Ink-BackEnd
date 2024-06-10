@@ -1,6 +1,7 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -85,10 +86,10 @@ public class UsuarioService {
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
 
-            // Atualize os dados do usuário com base nos dados do DTO de atualização
+
             Usuario usuarioAtualizado = UsuarioMapper.atualizarUsuario(usuario, usuarioAtualizacaoDto);
 
-            // Salve as mudanças no banco de dados
+
             Usuario usuarioSalvo = usuarioRepository.save(usuarioAtualizado);
 
             return usuarioSalvo;
@@ -142,7 +143,7 @@ public class UsuarioService {
     }
 
     public List<UsuarioListagemGeralDto> retornarUsuariosGeral(){
-
+        usuarioRepository.findAll();
         return null;
     }
 
@@ -150,4 +151,10 @@ public class UsuarioService {
 
         return null;
     }
+
+    public List<UsuarioListagemDto> retornaUsuariosPorEstilo(UsuarioListagemDto usuario){
+        return usuarioRepository.findUsuarioByEstilos(usuario.getEstilos());
+    }
+
+
 }

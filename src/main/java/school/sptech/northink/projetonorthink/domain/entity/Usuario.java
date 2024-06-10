@@ -1,5 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,15 @@ import java.util.List;
 @Entity
 public class Usuario {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnore
+    @Lob
+    //@Column(length = 16 * 1024 * 1024) // 16 MB
+    private String fotoPerfil;
+
     private String nome;
     private String sobrenome;
     private String cpf;
@@ -24,16 +30,20 @@ public class Usuario {
     private String email;
     private String senha;
     private String resumo;
-    private List<String> estilo;
-    private List<String> anosExperiencia;
+
+    private String anosExperiencia;
+
     private Double precoMinimo;
     private String instagram;
     private String novaSenha;
 
-    @OneToMany(mappedBy = "estilo")
+    @OneToMany(mappedBy = "usuario")
     private List<Estilo> estilos;
 
-    @OneToMany(mappedBy = "tatuagens")
+    @OneToMany(mappedBy = "usuario")
     private List<Tatuagem> tatuagens;
+
+    @OneToOne
+    private Estudio estudio;
 
 }
