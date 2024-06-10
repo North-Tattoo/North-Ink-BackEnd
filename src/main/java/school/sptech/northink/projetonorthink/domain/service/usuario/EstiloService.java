@@ -45,4 +45,8 @@ public class EstiloService {
         List<Estilo> estilos = estiloRepository.findAll();
         return EstiloMapper.toDto(estilos);
     }
+
+    public Estilo findEstiloMaisCadastrado() {
+        return estiloRepository.findEstiloMaisCadastrado();
+    }
 }
