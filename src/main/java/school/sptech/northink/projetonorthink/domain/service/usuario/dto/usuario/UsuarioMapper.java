@@ -84,7 +84,7 @@ public class UsuarioMapper {
         usuarioExistente.setSobrenome(usuarioAtualizacaoDto.getSobrenome());
         usuarioExistente.setEmail(usuarioAtualizacaoDto.getEmail());
         usuarioExistente.setSenha(usuarioAtualizacaoDto.getSenha());
-        usuarioExistente.setNovaSenha(usuarioAtualizacaoDto.getNovaSenha());
+        usuarioExistente.setSenha(usuarioAtualizacaoDto.getNovaSenha());
         usuarioExistente.setCelular(usuarioAtualizacaoDto.getCelular());
 
         return usuarioExistente;
@@ -96,5 +96,22 @@ public class UsuarioMapper {
                 u.getNome(),
                 u.getFotoPerfil()
         );
+    }
+
+    public static UsuarioListagemPortfolioDto toPortfolioDto(Usuario usuario) {
+        if (usuario == null) return null;
+
+        UsuarioListagemPortfolioDto usuarioPortfolioDto = new UsuarioListagemPortfolioDto();
+        usuarioPortfolioDto.setFotoPerfil(usuario.getFotoPerfil());
+        usuarioPortfolioDto.setNome(usuario.getNome());
+        usuarioPortfolioDto.setValorMin(usuario.getPrecoMinimo());
+        usuarioPortfolioDto.setAnosExperiencia(usuario.getAnosExperiencia());
+        usuarioPortfolioDto.setResumo(usuario.getResumo());
+        usuarioPortfolioDto.setDescricao(usuario.getDescricao());
+        usuarioPortfolioDto.setInstagram(usuario.getInstagram());
+        usuarioPortfolioDto.setEstilos(usuario.getEstilos());
+        usuarioPortfolioDto.setEstudio(usuario.getEstudio());
+
+        return usuarioPortfolioDto;
     }
 }

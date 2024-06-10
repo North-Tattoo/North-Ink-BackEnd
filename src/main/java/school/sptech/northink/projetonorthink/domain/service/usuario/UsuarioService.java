@@ -1,5 +1,7 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario;
 
+import com.azure.core.exception.ResourceNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class UsuarioService {
 
@@ -147,9 +150,12 @@ public class UsuarioService {
         return null;
     }
 
-    public List<UsuarioListagemPortfolioDto> retornarPortfolioUsuario() {
+    public UsuarioListagemPortfolioDto retornarPortfolioUsuario(Long portifolioId) {
 
-        return null;
+        Usuario usuario = usuarioRepository.findById(portifolioId)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Show não encontrado"));
+
+        return UsuarioMapper.toPortfolioDto(usuario);
     }
 
     public List<UsuarioListagemDto> retornaUsuariosPorEstilo(UsuarioListagemDto usuario){

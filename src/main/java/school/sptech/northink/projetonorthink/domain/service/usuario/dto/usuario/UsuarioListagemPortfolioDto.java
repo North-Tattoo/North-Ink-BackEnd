@@ -13,8 +13,9 @@ public class UsuarioListagemPortfolioDto {
     private String fotoPerfil;
     private String nome;
     private Double valorMin;
-    private List<String> anosExperiencia;
+    private String anosExperiencia;
     private String resumo;
+
     private String descricao;
     private String instagram;
 
