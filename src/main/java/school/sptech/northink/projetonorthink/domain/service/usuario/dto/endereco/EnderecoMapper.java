@@ -33,7 +33,7 @@ public class EnderecoMapper {
         endereco.setBairro(enderecoCriacaoDto.getBairro());
         endereco.setCidade(enderecoCriacaoDto.getCidade());
         endereco.setEstado(enderecoCriacaoDto.getEstado());
-        endereco.setFkEstudio(endereco.getFkEstudio());
+        endereco.setEstudio(endereco.getEstudio());
         // salvar na entidade qual a fk do estudio que está vinculado ao endereco
         return endereco;
     }

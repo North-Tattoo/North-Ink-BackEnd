@@ -44,7 +44,7 @@ public class EstudioMapper {
 
         estudio.setNome(estudioCriacaoDto.getNome());
         estudio.setDescricao(estudioCriacaoDto.getDescricao());
-        estudio.setFkUsuario(estudioCriacaoDto.getFkUsuario());
+        estudio.setUsuario(estudioCriacaoDto.getFkUsuario());
 
         return estudio;
     }

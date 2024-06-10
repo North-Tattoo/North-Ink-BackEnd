@@ -18,6 +18,8 @@ public class TatuagemCriacaoDto {
     @NotNull
     private Double preco;
 
-    private Usuario fkUsuario;
+    private String imagemUrl;
+
+    private Long usuarioId;
 
 }

@@ -12,16 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 import school.sptech.northink.projetonorthink.api.util.GerenciadorDeArquivoCSV;
 import school.sptech.northink.projetonorthink.api.util.ListaObj;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.UsuarioService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioLoginDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioAtualizacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioListagemDto;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,12 +102,45 @@ public class UsuarioController {
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7); // Remove o prefixo "Bearer "
-            // Lógica para invalidar ou expirar o token JWT (pode variar dependendo da implementação)
-            // Exemplo: adicionar o token a uma lista de tokens inválidos
+
             SecurityContextHolder.clearContext();
             // tokenManager.invalidateToken(token);
             return ResponseEntity.ok("Logout realizado com sucesso.");
         }
         return ResponseEntity.badRequest().body("Falha ao realizar logout.");
+    }
+
+
+    @GetMapping("/{id}/portfolio")
+    public ResponseEntity<UsuarioListagemPortfolioDto> retornarPortfolioUsuario(@PathVariable Long id) {
+        UsuarioListagemPortfolioDto portfolioUsuario = usuarioService.retornarPortfolioUsuario(id);
+        return ResponseEntity.status(HttpStatus.OK).body(portfolioUsuario);
+    }
+
+
+    @PostMapping("/por-estilo")
+    public ResponseEntity<List<UsuarioListagemDto>> retornaUsuariosPorEstilo(@RequestBody UsuarioListagemDto usuario) {
+        List<UsuarioListagemDto> usuariosPorEstilo = usuarioService.retornaUsuariosPorEstilo(usuario);
+        return ResponseEntity.status(HttpStatus.OK).body(usuariosPorEstilo);
+    }
+
+    public ResponseEntity<List<UsuarioListagemGeralDto>> retornarUsuariosGeral() {
+        List<UsuarioListagemGeralDto> usuarios = usuarioService.retornarUsuariosGeral();
+        return ResponseEntity.status(HttpStatus.OK).body(usuarios);
+    }
+
+    @PostMapping("/uploadFotoPerfil")
+    public ResponseEntity<Object> uploadFile(@RequestParam("images") MultipartFile[] files, @RequestParam Long id) throws IOException {
+        if (files.length == 0) {
+            return ResponseEntity.badRequest().body("No files were provided.");
+        }
+
+        try {
+            List<String> fileUrls = usuarioService.uploadFotoPerfil(files, id);
+            return ResponseEntity.ok(fileUrls);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error uploading files.");
+        }
     }
 }

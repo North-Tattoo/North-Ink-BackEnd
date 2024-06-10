@@ -1,12 +1,19 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario;
 
+import com.azure.core.exception.ResourceNotFoundException;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.models.BlobHttpHeaders;
+import com.azure.storage.blob.models.BlobStorageException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.northink.projetonorthink.api.configuration.security.jwt.GerenciadorTokenJWT;
 import school.sptech.northink.projetonorthink.api.util.GerenciadorDeArquivoCSV;
@@ -18,6 +25,8 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.autenticaca
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -36,6 +45,9 @@ public class UsuarioService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private BlobContainerClient blobContainerClient;
 
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -85,10 +97,10 @@ public class UsuarioService {
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
 
-            // Atualize os dados do usuário com base nos dados do DTO de atualização
+
             Usuario usuarioAtualizado = UsuarioMapper.atualizarUsuario(usuario, usuarioAtualizacaoDto);
 
-            // Salve as mudanças no banco de dados
+
             Usuario usuarioSalvo = usuarioRepository.save(usuarioAtualizado);
 
             return usuarioSalvo;
@@ -142,12 +154,49 @@ public class UsuarioService {
     }
 
     public List<UsuarioListagemGeralDto> retornarUsuariosGeral(){
-
+        usuarioRepository.findAll();
         return null;
     }
 
-    public List<UsuarioListagemPortfolioDto> retornarPortfolioUsuario() {
+    public UsuarioListagemPortfolioDto retornarPortfolioUsuario(Long portifolioId) {
 
-        return null;
+        Usuario usuario = usuarioRepository.findById(portifolioId)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Show não encontrado"));
+
+        return UsuarioMapper.toPortfolioDto(usuario);
+    }
+
+    public List<UsuarioListagemDto> retornaUsuariosPorEstilo(UsuarioListagemDto usuario){
+        return usuarioRepository.findUsuarioByEstilos(usuario.getEstilos());
+    }
+
+    public List<String> uploadFotoPerfil(MultipartFile[] files, Long id) throws IOException {
+        List<String> fileUrls = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                String fileName = id + "/" + file.getOriginalFilename(); // You can customize the file naming strategy here
+                try {
+                    blobContainerClient.getBlobClient(fileName).upload(file.getInputStream(), file.getSize(), true);
+                    BlobHttpHeaders headers = new BlobHttpHeaders().setContentType(file.getContentType());
+                    blobContainerClient.getBlobClient(fileName).setHttpHeaders(headers);
+
+                    String fileUrl = blobContainerClient.getBlobClient(fileName).getBlobUrl();
+                    fileUrls.add(fileUrl);
+                } catch (BlobStorageException e) {
+                    e.printStackTrace();
+                    throw new IOException("Error uploading file to Azure Blob Storage", e);
+                }
+            }
+        }
+        return fileUrls;
+    }
+
+    public Usuario porId(Long id) {
+        return usuarioRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
+        );
     }
 }
+
+

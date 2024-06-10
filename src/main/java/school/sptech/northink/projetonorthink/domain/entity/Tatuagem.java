@@ -16,7 +16,10 @@ public class Tatuagem {
     private Long id;
     private String estilo;
     private Double preco;
+    private String Descricao;
+    private String imagemUrl;
+
     @ManyToOne
     private Usuario fkUsuario;
-    // um usuario pode ter 1 ou mais tatuagens cadastradas
+
 }

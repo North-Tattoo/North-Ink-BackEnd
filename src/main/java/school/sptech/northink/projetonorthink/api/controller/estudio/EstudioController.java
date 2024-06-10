@@ -78,7 +78,6 @@
 //        return ResponseEntity.status(200).body(estudioListagemDto);
 //    }
 //
-//    @Operation(summary = "Deletar estúdio pelo ID")
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<Estudio> deletarEstudio(@PathVariable Long id) {
 //        Optional<Estudio> optionalEstudio = estudioRepository.findById(id);

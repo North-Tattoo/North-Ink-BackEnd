@@ -12,5 +12,5 @@ public class EstiloCriacaoDto {
 
     @NotNull
     private String nome;
-    private Usuario fkUsuario;
+
 }

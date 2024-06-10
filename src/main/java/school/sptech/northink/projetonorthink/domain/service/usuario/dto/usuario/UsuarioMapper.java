@@ -1,10 +1,13 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public class UsuarioMapper {
 
@@ -81,10 +84,34 @@ public class UsuarioMapper {
         usuarioExistente.setSobrenome(usuarioAtualizacaoDto.getSobrenome());
         usuarioExistente.setEmail(usuarioAtualizacaoDto.getEmail());
         usuarioExistente.setSenha(usuarioAtualizacaoDto.getSenha());
-        usuarioExistente.setNovaSenha(usuarioAtualizacaoDto.getNovaSenha());
+        usuarioExistente.setSenha(usuarioAtualizacaoDto.getNovaSenha());
         usuarioExistente.setCelular(usuarioAtualizacaoDto.getCelular());
 
         return usuarioExistente;
     }
 
+    public static UsuarioFotoDto of(Usuario u) {
+        return new UsuarioFotoDto(
+                u.getId(),
+                u.getNome(),
+                u.getFotoPerfil()
+        );
+    }
+
+    public static UsuarioListagemPortfolioDto toPortfolioDto(Usuario usuario) {
+        if (usuario == null) return null;
+
+        UsuarioListagemPortfolioDto usuarioPortfolioDto = new UsuarioListagemPortfolioDto();
+        usuarioPortfolioDto.setFotoPerfil(usuario.getFotoPerfil());
+        usuarioPortfolioDto.setNome(usuario.getNome());
+        usuarioPortfolioDto.setValorMin(usuario.getPrecoMinimo());
+        usuarioPortfolioDto.setAnosExperiencia(usuario.getAnosExperiencia());
+        usuarioPortfolioDto.setResumo(usuario.getResumo());
+        usuarioPortfolioDto.setDescricao(usuario.getDescricao());
+        usuarioPortfolioDto.setInstagram(usuario.getInstagram());
+        usuarioPortfolioDto.setEstilos(usuario.getEstilos());
+        usuarioPortfolioDto.setEstudio(usuario.getEstudio());
+
+        return usuarioPortfolioDto;
+    }
 }

@@ -2,6 +2,7 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuari
 
 import lombok.Data;
 import lombok.Getter;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 
 import java.util.List;
 
@@ -9,13 +10,15 @@ import java.util.List;
 public class UsuarioListagemGeralDto {
 
     private String nome;
+
     private String rua;
+
     private String numero;
+
     private String bairro;
+
     private Double precoMin;
-    private List<String> estilos;
 
-
-    // nessa dto será puxado os dados da entidade USUARIO e ENDERECO
+    private List<Estilo> estilos;
 
 }
