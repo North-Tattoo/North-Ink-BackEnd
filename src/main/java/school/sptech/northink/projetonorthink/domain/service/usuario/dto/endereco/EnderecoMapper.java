@@ -2,6 +2,7 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.endere
 
 import school.sptech.northink.projetonorthink.domain.entity.Endereco;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
+import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloAtualizacaoDto;
 
 import java.util.List;
@@ -21,7 +22,8 @@ public class EnderecoMapper {
         return enderecoListagemDto;
     }
 
-    public static Endereco toEntity(EnderecoCriacaoDto enderecoCriacaoDto) {
+    // Adicionado instância do Estudio como argumento no método - Zapatta
+    public static Endereco toEntity(EnderecoCriacaoDto enderecoCriacaoDto, Estudio estudio) {
         if (enderecoCriacaoDto == null) return null;
 
         Endereco endereco = new Endereco();
@@ -33,7 +35,9 @@ public class EnderecoMapper {
         endereco.setBairro(enderecoCriacaoDto.getBairro());
         endereco.setCidade(enderecoCriacaoDto.getCidade());
         endereco.setEstado(enderecoCriacaoDto.getEstado());
-        endereco.setFkEstudio(endereco.getFkEstudio());
+        // endereco.setFkEstudio(endereco.getFkEstudio());
+        // Necessário puxar o estúdio pois ele está tendo relacionamento na entidade Endereco - Zapatta
+        endereco.setEstudio(estudio);
         // salvar na entidade qual a fk do estudio que está vinculado ao endereco
         return endereco;
     }

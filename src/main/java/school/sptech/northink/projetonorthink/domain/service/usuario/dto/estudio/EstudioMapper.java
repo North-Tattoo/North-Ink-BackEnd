@@ -37,14 +37,17 @@ public class EstudioMapper {
 //    }
 
     // convertendo uma dto para um entidade
-    public static Estudio toEntity(EstudioCriacaoDto estudioCriacaoDto) {
+    // Adicionado instância do Usuario como argumento no método - Zapatta
+    public static Estudio toEntity(EstudioCriacaoDto estudioCriacaoDto, Usuario usuario) {
         if (estudioCriacaoDto == null) return null;
 
         Estudio estudio = new Estudio();
 
         estudio.setNome(estudioCriacaoDto.getNome());
         estudio.setDescricao(estudioCriacaoDto.getDescricao());
-        estudio.setFkUsuario(estudioCriacaoDto.getFkUsuario());
+        // estudio.setFkUsuario(estudioCriacaoDto.getFkUsuario());
+        // Necessário puxar o Usuario pois ele está tendo relacionamento na entidade Estudio - Zapatta
+        estudio.setUsuario(usuario);
 
         return estudio;
     }
