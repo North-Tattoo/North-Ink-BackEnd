@@ -1,10 +1,5 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario;
 
-import com.azure.core.exception.ResourceNotFoundException;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.models.BlobHttpHeaders;
-import com.azure.storage.blob.models.BlobStorageException;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,8 +41,8 @@ public class UsuarioService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private BlobContainerClient blobContainerClient;
+//    @Autowired
+//    private BlobContainerClient blobContainerClient;
 
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -173,22 +168,22 @@ public class UsuarioService {
     public List<String> uploadFotoPerfil(MultipartFile[] files, Long id) throws IOException {
         List<String> fileUrls = new ArrayList<>();
 
-        for (MultipartFile file : files) {
-            if (!file.isEmpty()) {
-                String fileName = id + "/" + file.getOriginalFilename(); // You can customize the file naming strategy here
-                try {
-                    blobContainerClient.getBlobClient(fileName).upload(file.getInputStream(), file.getSize(), true);
-                    BlobHttpHeaders headers = new BlobHttpHeaders().setContentType(file.getContentType());
-                    blobContainerClient.getBlobClient(fileName).setHttpHeaders(headers);
-
-                    String fileUrl = blobContainerClient.getBlobClient(fileName).getBlobUrl();
-                    fileUrls.add(fileUrl);
-                } catch (BlobStorageException e) {
-                    e.printStackTrace();
-                    throw new IOException("Error uploading file to Azure Blob Storage", e);
-                }
-            }
-        }
+//        for (MultipartFile file : files) {
+//            if (!file.isEmpty()) {
+//                String fileName = id + "/" + file.getOriginalFilename(); // You can customize the file naming strategy here
+//                try {
+//                    blobContainerClient.getBlobClient(fileName).upload(file.getInputStream(), file.getSize(), true);
+//                    BlobHttpHeaders headers = new BlobHttpHeaders().setContentType(file.getContentType());
+//                    blobContainerClient.getBlobClient(fileName).setHttpHeaders(headers);
+//
+//                    String fileUrl = blobContainerClient.getBlobClient(fileName).getBlobUrl();
+//                    fileUrls.add(fileUrl);
+//                } catch (BlobStorageException e) {
+//                    e.printStackTrace();
+//                    throw new IOException("Error uploading file to Azure Blob Storage", e);
+//                }
+//            }
+//        }
         return fileUrls;
     }
 
