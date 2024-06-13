@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloAtualizacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloMapper;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.*;
 
 import java.util.List;
 
@@ -48,5 +45,9 @@ public class EstiloService {
 
     public Estilo findEstiloMaisCadastrado() {
         return estiloRepository.findEstiloMaisCadastrado();
+    }
+
+    public List<EstiloCountDto> findTop3Estilos() {
+        return estiloRepository.findTop3Estilos();
     }
 }
