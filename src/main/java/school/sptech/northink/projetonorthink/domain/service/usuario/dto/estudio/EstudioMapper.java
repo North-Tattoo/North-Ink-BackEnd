@@ -2,10 +2,7 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudi
 
 import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioAtualizacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.UsuarioMapper;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
 import java.util.List;
 

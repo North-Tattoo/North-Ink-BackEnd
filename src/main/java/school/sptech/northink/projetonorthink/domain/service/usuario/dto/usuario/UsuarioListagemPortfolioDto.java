@@ -10,6 +10,7 @@ import java.util.List;
 
 public class UsuarioListagemPortfolioDto {
 
+    private Long id;
     private String fotoPerfil;
     private String nome;
     private Double valorMin;

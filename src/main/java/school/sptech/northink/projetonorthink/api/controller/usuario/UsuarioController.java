@@ -60,12 +60,18 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuarios());
     }
 
-    // listar usuario pelo id
-    @Operation(summary = "Listar todos os usuários")
+    // procurar usuario pelo id
+    @Operation(summary = "Procurar usuário pelo ID")
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioListagemDto> listarPeloId(@PathVariable Long id) {
-
+    public ResponseEntity<UsuarioListagemDto> procurarPeloId(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuarioId(id));
+    }
+
+    // endpoint para chamar portfólio do usuário
+    @Operation(summary = "Retornar portfólio do usuário")
+    @GetMapping("/portfolio/{id}")
+    public ResponseEntity<UsuarioListagemPortfolioDto> buscaPortfolioId(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.buscaPortfolioId(id));
     }
 
     // atualizar todos os dados do usuario

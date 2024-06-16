@@ -11,6 +11,7 @@ public class EnderecoListagemDto {
     // endereco (rua, numero e bairro)
     // nessa listagem deve retornar a rua do tatuador
 
+    private Long id;
     private String rua;
     private Integer numero;
     private String bairro;

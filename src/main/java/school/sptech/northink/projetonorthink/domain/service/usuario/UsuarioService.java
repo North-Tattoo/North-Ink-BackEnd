@@ -91,12 +91,6 @@ public class UsuarioService {
         return UsuarioMapper.of(usuarioAutenticado, token);
     }
 
-    public UsuarioListagemDto listarUsuarioId(Long id) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
-        return UsuarioMapper.toDto(usuario);
-    }
-
     public List<UsuarioListagemDto> listarUsuarios() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         List<UsuarioListagemDto> usuarioListagemDtos = new ArrayList<>();
@@ -104,6 +98,18 @@ public class UsuarioService {
             usuarioListagemDtos.add(UsuarioMapper.toDto(usuario));
         }
         return usuarioListagemDtos;
+    }
+
+    public UsuarioListagemDto listarUsuarioId(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
+        return UsuarioMapper.toDto(usuario);
+    }
+
+    public UsuarioListagemPortfolioDto buscaPortfolioId(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
+        return UsuarioMapper.toPortfolioDto(usuario);
     }
 
 
