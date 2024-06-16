@@ -1,5 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,6 @@ public class Estilo {
 
     @ManyToOne
     @JoinColumn(name = "fkUsuario")
+    @JsonBackReference
     private Usuario fkUsuario;
 }

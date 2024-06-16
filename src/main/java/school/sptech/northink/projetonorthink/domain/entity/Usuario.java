@@ -1,6 +1,7 @@
 package school.sptech.northink.projetonorthink.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -72,6 +73,7 @@ public class Usuario {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "fkUsuario")
     @Fetch(FetchMode.JOIN)
+    @JsonManagedReference
     private List<Estilo> estilos = new ArrayList<>();
 
     @OneToMany(mappedBy = "fkUsuario")
