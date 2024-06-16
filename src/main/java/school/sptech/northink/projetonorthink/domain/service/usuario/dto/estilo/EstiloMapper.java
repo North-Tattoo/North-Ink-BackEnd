@@ -19,7 +19,6 @@ public class EstiloMapper {
         EstiloListagemDto estiloListagemDto = new EstiloListagemDto();
 
         estiloListagemDto.setNome(entity.getNome());
-        estiloListagemDto.setDescricao(entity.getDescricao()); // novo mapeamento
 
         return estiloListagemDto;
     }
@@ -56,7 +55,6 @@ public class EstiloMapper {
 
         Estilo estilo = new Estilo();
         estilo.setNome(dto.getNome());
-        estilo.setDescricao(dto.getDescricao()); // novo mapeamento
         estilo.setFkUsuario(usuario); // associa o estilo ao usuário
 
         return estilo;
