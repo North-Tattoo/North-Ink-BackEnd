@@ -16,7 +16,6 @@ public class Estilo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "fkUsuario")
