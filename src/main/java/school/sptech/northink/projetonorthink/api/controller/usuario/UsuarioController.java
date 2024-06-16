@@ -127,11 +127,11 @@ public class UsuarioController {
     }
 
 
-    @GetMapping("/{id}/portfolio")
-    public ResponseEntity<UsuarioListagemPortfolioDto> retornarPortfolioUsuario(@PathVariable Long id) {
-        UsuarioListagemPortfolioDto portfolioUsuario = usuarioService.retornarPortfolioUsuario(id);
-        return ResponseEntity.status(HttpStatus.OK).body(portfolioUsuario);
-    }
+    //@GetMapping("/{id}/portfolio")
+    //public ResponseEntity<UsuarioListagemPortfolioDto> retornarPortfolioUsuario(@PathVariable Long id) {
+    //    UsuarioListagemPortfolioDto portfolioUsuario = usuarioService.retornarPortfolioUsuario(id);
+    //    return ResponseEntity.status(HttpStatus.OK).body(portfolioUsuario);
+    //}
 
 
     @PostMapping("/por-estilo")

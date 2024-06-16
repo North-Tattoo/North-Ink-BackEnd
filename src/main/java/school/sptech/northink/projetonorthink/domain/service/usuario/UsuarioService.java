@@ -113,19 +113,32 @@ public class UsuarioService {
     }
 
 
-    public Usuario atualizarUsuario(Long id, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
+    public UsuarioTokenDto atualizarUsuario(Long id, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
 
+            // Atualize os campos do usuário existente com base nos dados do DTO de atualização
+            usuario.setNome(usuarioAtualizacaoDto.getNome());
+            usuario.setSobrenome(usuarioAtualizacaoDto.getSobrenome());
+            usuario.setEmail(usuarioAtualizacaoDto.getEmail());
+            // Criptografe a nova senha antes de salvá-la
+            String senhaCriptografada = passwordEncoder.encode(usuarioAtualizacaoDto.getNovaSenha());
+            usuario.setSenha(senhaCriptografada);
+            usuario.setCelular(usuarioAtualizacaoDto.getCelular());
 
-            Usuario usuarioAtualizado = UsuarioMapper.atualizarUsuario(usuario, usuarioAtualizacaoDto);
+            // Salve o usuário atualizado no banco de dados
+            Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
+            // Gere um novo token JWT para o usuário
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    usuarioSalvo.getEmail(), usuarioAtualizacaoDto.getNovaSenha());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = gerenciadorTokenJwt.generateToken(authentication);
 
-            Usuario usuarioSalvo = usuarioRepository.save(usuarioAtualizado);
-
-            return usuarioSalvo;
+            // Retorne o usuário atualizado e o novo token
+            return UsuarioMapper.of(usuarioSalvo, token);
         } else {
             throw new NoSuchElementException("Usuário não encontrado com o ID: " + id);
         }

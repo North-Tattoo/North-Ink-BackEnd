@@ -93,6 +93,7 @@ public class UsuarioMapper {
 
 
 
+
     public static Usuario atualizarUsuario(Usuario usuarioExistente, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         // Atualize os campos do usuário existente com base nos dados do DTO de atualização
         usuarioExistente.setNome(usuarioAtualizacaoDto.getNome());
