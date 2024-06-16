@@ -64,7 +64,7 @@ public class Usuario {
 
 //    @NotNull
 //    @NotBlank
-//    @Size(min = 1, max = 500)
+//    @Size(min = 1, max = 500)'
     private String descricao;
 
     @OneToMany(mappedBy = "fkUsuario")

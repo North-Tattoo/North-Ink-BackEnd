@@ -1,6 +1,7 @@
  package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,18 +43,12 @@ public class UsuarioCriacaoDto {
     @Size(min = 50, max = 500)
     private String resumo;
 
-    private String anosExperiencia;
-
-    @NotNull
-    @NotBlank
-    private Double precoMinimo;
-
-    @NotNull
-    private String instagram;
-
     @NotNull
     private List<Estilo> estilos;
 
-    @NotNull
-    private List<Tatuagem> tatuagens;
+    @Data
+    public static class EstiloDto{
+        private String nome;
+    }
+
 }

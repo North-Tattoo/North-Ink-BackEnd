@@ -8,9 +8,9 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.autenticaca
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class UsuarioMapper {
-
 
     // pegando as informações do front end - CADASTRO
     public static Usuario of(UsuarioCriacaoDto usuarioCriacaoDto) {
@@ -23,6 +23,15 @@ public class UsuarioMapper {
         usuario.setEmail(usuarioCriacaoDto.getEmail());
         usuario.setSenha(usuarioCriacaoDto.getSenha());
         usuario.setResumo(usuarioCriacaoDto.getResumo());
+
+        List<Estilo> estilos = usuarioCriacaoDto.getEstilos().stream()
+                .map(estiloDto -> {
+                    Estilo estilo = new Estilo();
+                    estilo.setNome(estiloDto.getNome());
+                    return estilo;
+                })
+                .collect(Collectors.toList());
+        usuario.setEstilos(estilos);
 
         return usuario;
     }
@@ -62,12 +71,9 @@ public class UsuarioMapper {
 
     private static List<UsuarioListagemDto.EstiloDto> toEstiloDto(List<Estilo> entities) {
         return entities.stream().map(e -> {
-
             UsuarioListagemDto.EstiloDto dto = new UsuarioListagemDto.EstiloDto();
-
             dto.setId(e.getId());
             dto.setNome(e.getNome());
-
             return dto;
         }).toList();
     }
@@ -76,7 +82,6 @@ public class UsuarioMapper {
     public static List<UsuarioListagemDto> toDto(List<Usuario> entities) {
         return entities.stream().map(UsuarioMapper::toDto).toList();
     }
-
 
     public static Usuario atualizarUsuario(Usuario usuarioExistente, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         // Atualize os campos do usuário existente com base nos dados do DTO de atualização
