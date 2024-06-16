@@ -6,8 +6,11 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -67,8 +70,9 @@ public class Usuario {
 //    @Size(min = 1, max = 500)'
     private String descricao;
 
-    @OneToMany(mappedBy = "fkUsuario")
-    private List<Estilo> estilos;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "fkUsuario")
+    @Fetch(FetchMode.JOIN)
+    private List<Estilo> estilos = new ArrayList<>();
 
     @OneToMany(mappedBy = "fkUsuario")
     private List<Tatuagem> tatuagens;

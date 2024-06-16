@@ -3,7 +3,9 @@ package school.sptech.northink.projetonorthink.domain.service.usuario;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
+import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository;
+import school.sptech.northink.projetonorthink.domain.repository.UsuarioRepository;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.*;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class EstiloService {
 
     private final EstiloRepository estiloRepository;
 
-    public EstiloListagemDto criarEstilo(EstiloCriacaoDto estiloCriacaoDto) {
-        Estilo estilo = EstiloMapper.toEntity(estiloCriacaoDto);
+    public EstiloListagemDto criarEstilo(EstiloCriacaoDto estiloCriacaoDto, Usuario usuario) {
+        Estilo estilo = EstiloMapper.toEntity(estiloCriacaoDto, usuario);
         estilo = estiloRepository.save(estilo);
         return EstiloMapper.toDto(estilo);
     }

@@ -24,6 +24,12 @@ public class EstiloController {
         return new ResponseEntity<>(estilo, HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<List<EstiloListagemDto>> listarTodos() {
+        List<EstiloListagemDto> estilos = estiloService.listarEstilos();
+        return new ResponseEntity<>(estilos, HttpStatus.OK);
+    }
 
+    // faça um getmapping para retornar todos os estilos cadastrados
 }
 

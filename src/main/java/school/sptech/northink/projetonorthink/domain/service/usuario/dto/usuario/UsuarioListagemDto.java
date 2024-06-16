@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloListagemDto;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class UsuarioListagemDto {
     private String anosExperiencia;
     private Double precoMinimo;
     private String instagram;
-    private List<Estilo> estilos;
+    private List<EstiloListagemDto> estilos;
     private List<Tatuagem> tatuagens;
 
     @Data

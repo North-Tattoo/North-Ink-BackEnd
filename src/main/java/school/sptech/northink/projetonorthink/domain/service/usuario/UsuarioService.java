@@ -13,11 +13,14 @@ import org.springframework.web.server.ResponseStatusException;
 import school.sptech.northink.projetonorthink.api.configuration.security.jwt.GerenciadorTokenJWT;
 import school.sptech.northink.projetonorthink.api.util.GerenciadorDeArquivoCSV;
 import school.sptech.northink.projetonorthink.api.util.ListaObj;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
+import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository;
 import school.sptech.northink.projetonorthink.domain.repository.TatuagemRepository;
 import school.sptech.northink.projetonorthink.domain.repository.UsuarioRepository;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioLoginDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloMapper;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
 import java.io.IOException;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -41,6 +45,9 @@ public class UsuarioService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private EstiloRepository estiloRepository;
+
 //    @Autowired
 //    private BlobContainerClient blobContainerClient;
 
@@ -54,7 +61,14 @@ public class UsuarioService {
         String senhaCriptografada = passwordEncoder.encode(novoUsuario.getSenha());
         novoUsuario.setSenha(senhaCriptografada);
 
-        this.usuarioRepository.save(novoUsuario);
+        // Salva o usuário antes de salvar os estilos
+        Usuario usuarioSalvo = this.usuarioRepository.save(novoUsuario);
+
+        // Salva cada estilo individualmente
+        novoUsuario.getEstilos().forEach(estilo -> {
+            estilo.setFkUsuario(usuarioSalvo);
+            estiloRepository.save(estilo);
+        });
     }
 
     public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
@@ -77,14 +91,21 @@ public class UsuarioService {
         return UsuarioMapper.of(usuarioAutenticado, token);
     }
 
+    public UsuarioListagemDto listarUsuarioId(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
+        return UsuarioMapper.toDto(usuario);
+    }
 
     public List<UsuarioListagemDto> listarUsuarios() {
-        return UsuarioMapper.toDto(usuarioRepository.findAll());
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<UsuarioListagemDto> usuarioListagemDtos = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            usuarioListagemDtos.add(UsuarioMapper.toDto(usuario));
+        }
+        return usuarioListagemDtos;
     }
 
-    public UsuarioListagemDto listarUsuarioId(Long id) {
-        return UsuarioMapper.toDto(usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(404, "Id não localizado", null)));
-    }
 
     public Usuario atualizarUsuario(Long id, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);

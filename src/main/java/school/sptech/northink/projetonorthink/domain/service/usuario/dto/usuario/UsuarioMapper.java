@@ -1,18 +1,23 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloListagemDto;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloMapper;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class UsuarioMapper {
 
-    // pegando as informações do front end - CADASTRO
+    // O que esta acontecento aqui é que estamos pegando as informações do front end e convertendo em uma entity
+
+    // me ajude a entender o que é um DTO
+
+
+
+
     public static Usuario of(UsuarioCriacaoDto usuarioCriacaoDto) {
         Usuario usuario = new Usuario();
 
@@ -23,7 +28,6 @@ public class UsuarioMapper {
         usuario.setEmail(usuarioCriacaoDto.getEmail());
         usuario.setSenha(usuarioCriacaoDto.getSenha());
         usuario.setResumo(usuarioCriacaoDto.getResumo());
-
         List<Estilo> estilos = usuarioCriacaoDto.getEstilos().stream()
                 .map(estiloDto -> {
                     Estilo estilo = new Estilo();
@@ -49,7 +53,7 @@ public class UsuarioMapper {
     }
 
     // metodo convertendo a entity em uma dto
-    public static UsuarioListagemDto toDto(Usuario usuario) {
+    public static UsuarioListagemDto toDto(Usuario usuario ) {
         if (usuario == null) return null;
 
         UsuarioListagemDto usuarioListagemDto = new UsuarioListagemDto();
@@ -63,11 +67,14 @@ public class UsuarioMapper {
         usuarioListagemDto.setResumo(usuario.getResumo());
         usuarioListagemDto.setPrecoMinimo(usuario.getPrecoMinimo());
         usuarioListagemDto.setInstagram(usuario.getInstagram());
-        usuarioListagemDto.setEstilos(usuario.getEstilos());
+        List<EstiloListagemDto> estilosListagemDto = EstiloMapper.toDto(usuario.getEstilos());
+        usuarioListagemDto.setEstilos(estilosListagemDto);
         usuarioListagemDto.setTatuagens(usuario.getTatuagens());
 
         return usuarioListagemDto;
     }
+
+
 
     private static List<UsuarioListagemDto.EstiloDto> toEstiloDto(List<Estilo> entities) {
         return entities.stream().map(e -> {
@@ -79,9 +86,12 @@ public class UsuarioMapper {
     }
 
     // Método sobrecarregado para mapear uma lista de entidades em uma lista de DTOs
-    public static List<UsuarioListagemDto> toDto(List<Usuario> entities) {
-        return entities.stream().map(UsuarioMapper::toDto).toList();
+    public static List<UsuarioListagemDto> toDto(List<Usuario> usuarios) {
+        if (usuarios == null) return null;
+        return usuarios.stream().map(UsuarioMapper::toDto).collect(Collectors.toList());
     }
+
+
 
     public static Usuario atualizarUsuario(Usuario usuarioExistente, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         // Atualize os campos do usuário existente com base nos dados do DTO de atualização

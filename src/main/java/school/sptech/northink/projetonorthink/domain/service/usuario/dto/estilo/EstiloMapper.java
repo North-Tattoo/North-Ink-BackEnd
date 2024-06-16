@@ -19,7 +19,7 @@ public class EstiloMapper {
         EstiloListagemDto estiloListagemDto = new EstiloListagemDto();
 
         estiloListagemDto.setNome(entity.getNome());
-
+        estiloListagemDto.setDescricao(entity.getDescricao()); // novo mapeamento
 
         return estiloListagemDto;
     }
@@ -34,15 +34,40 @@ public class EstiloMapper {
 
     public static List<EstiloListagemDto> toDto(List<Estilo> entities) {
         // Aqui é utilizado um método que mapea um a um e reutilizado para poder fazer a passagem de lista sem duplicar código
+        if (entities == null) return null;
+
         return entities.stream().map(EstiloMapper::toDto).toList();
     }
 
-    public static Estilo toEntity(EstiloCriacaoDto dto){
+
+
+    public static Estilo toEntity(EstiloCriacaoDto dto, Usuario usuario){
         if (dto == null) return null;
 
         Estilo estilo = new Estilo();
         estilo.setNome(dto.getNome());
+        estilo.setFkUsuario(usuario); // associa o estilo ao usuário
 
         return estilo;
     }
+
+    public static Estilo toEntityFromListagemDto(EstiloListagemDto dto, Usuario usuario){
+        if (dto == null) return null;
+
+        Estilo estilo = new Estilo();
+        estilo.setNome(dto.getNome());
+        estilo.setDescricao(dto.getDescricao()); // novo mapeamento
+        estilo.setFkUsuario(usuario); // associa o estilo ao usuário
+
+        return estilo;
+    }
+
+    //public static Estilo toEntity(EstiloCriacaoDto dto){
+    //    if (dto == null) return null;
+    //
+    //    Estilo estilo = new Estilo();
+    //    estilo.setNome(dto.getNome());
+    //
+    //    return estilo;
+    //}
 }
