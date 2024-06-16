@@ -131,6 +131,22 @@ public class UsuarioService {
         }
     }
 
+    public Usuario atualizarUsuarioPortfolio(Long id, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+
+            Usuario usuarioAtualizado = UsuarioMapper.atualizarUsuarioPortfolio(usuario, usuarioAtualizacaoPortfolioDto);
+
+            Usuario usuarioSalvo = usuarioRepository.save(usuarioAtualizado);
+
+            return usuarioSalvo;
+        } else {
+            throw new NoSuchElementException("Usuário não encontrado com o ID: " + id);
+        }
+    }
+
     public Usuario deletarUsuario(Long id) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 

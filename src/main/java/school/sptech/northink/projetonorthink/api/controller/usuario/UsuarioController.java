@@ -74,6 +74,16 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.buscaPortfolioId(id));
     }
 
+    // endpoint para atualizar portfólio do usuário
+    @Operation(summary = "Atualizar portfólio do usuário")
+    @PutMapping("/portfolioAtualizar/{id}")
+    public ResponseEntity<UsuarioAtualizaçãoPortfolioDto> atualizarPortfolioDto(@PathVariable Long id, @RequestBody UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
+        Usuario usuarioAtualizado = usuarioService.atualizarUsuarioPortfolio(id, usuarioAtualizacaoPortfolioDto);
+        // Aqui você pode precisar converter o usuário atualizado para um DTO antes de retorná-lo
+        UsuarioAtualizaçãoPortfolioDto usuarioAtualizadoDto = UsuarioMapper.toAtualizacaoPortfolioDto(usuarioAtualizado);
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioAtualizadoDto);
+    }
+
     // atualizar todos os dados do usuario
     @Operation(summary = "Atualizar dados do usuário pelo ID")
     @PutMapping("/{id}")

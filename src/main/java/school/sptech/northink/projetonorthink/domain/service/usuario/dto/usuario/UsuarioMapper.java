@@ -117,6 +117,7 @@ public class UsuarioMapper {
         if (usuario == null) return null;
 
         UsuarioListagemPortfolioDto usuarioPortfolioDto = new UsuarioListagemPortfolioDto();
+        usuarioPortfolioDto.setId(usuario.getId());
         usuarioPortfolioDto.setFotoPerfil(usuario.getFotoPerfil());
         usuarioPortfolioDto.setNome(usuario.getNome());
         usuarioPortfolioDto.setValorMin(usuario.getPrecoMinimo());
@@ -128,5 +129,54 @@ public class UsuarioMapper {
         usuarioPortfolioDto.setEstudio(usuario.getEstudio());
 
         return usuarioPortfolioDto;
+    }
+
+    public static UsuarioAtualizaçãoPortfolioDto toAtualizacaoPortfolioDto(Usuario usuario) {
+        if (usuario == null) return null;
+
+        UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto = new UsuarioAtualizaçãoPortfolioDto();
+        usuarioAtualizacaoPortfolioDto.setId(usuario.getId()); // Use the correct method to set the ID
+        usuarioAtualizacaoPortfolioDto.setPrecoMin(usuario.getPrecoMinimo());
+        usuarioAtualizacaoPortfolioDto.setAnosExperiencia(usuario.getAnosExperiencia());
+        usuarioAtualizacaoPortfolioDto.setResumo(usuario.getResumo());
+        usuarioAtualizacaoPortfolioDto.setInstagram(usuario.getInstagram());
+        // Aqui você precisa converter a lista de Estilo da entidade para a lista de Estilo do DTO
+        // Você pode usar o método map do Stream para isso, semelhante ao que você fez no método of
+        List<Estilo> estilos = usuario.getEstilos().stream()
+                .map(estilo -> {
+                    Estilo estiloDto = new Estilo();
+                    estiloDto.setNome(estilo.getNome());
+                    // Aqui você pode definir os outros campos do Estilo se necessário
+                    return estiloDto;
+                })
+                .collect(Collectors.toList());
+        usuarioAtualizacaoPortfolioDto.setEstilos(estilos);
+
+        return usuarioAtualizacaoPortfolioDto;
+    }
+
+    public static Usuario atualizarUsuarioPortfolio(Usuario usuarioExistente, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
+        // Atualize os campos do usuário existente com base nos dados do DTO de atualização
+        usuarioExistente.setId(usuarioAtualizacaoPortfolioDto.getId());
+        usuarioExistente.setPrecoMinimo(usuarioAtualizacaoPortfolioDto.getPrecoMin());
+        usuarioExistente.setAnosExperiencia(usuarioAtualizacaoPortfolioDto.getAnosExperiencia());
+        usuarioExistente.setResumo(usuarioAtualizacaoPortfolioDto.getResumo());
+        usuarioExistente.setInstagram(usuarioAtualizacaoPortfolioDto.getInstagram());
+        // Aqui você precisa converter a lista de Estilo do DTO para a lista de Estilo da entidade
+        // Você pode usar o método map do Stream para isso, semelhante ao que você fez no método of
+        List<Estilo> estilosDto = usuarioAtualizacaoPortfolioDto.getEstilos();
+        if (estilosDto != null) {
+            List<Estilo> estilos = estilosDto.stream()
+                    .map(estiloDto -> {
+                        Estilo estilo = new Estilo();
+                        estilo.setNome(estiloDto.getNome());
+                        // Aqui você pode definir os outros campos do Estilo se necessário
+                        return estilo;
+                    })
+                    .collect(Collectors.toList());
+            usuarioExistente.setEstilos(estilos);
+        }
+
+        return usuarioExistente;
     }
 }
