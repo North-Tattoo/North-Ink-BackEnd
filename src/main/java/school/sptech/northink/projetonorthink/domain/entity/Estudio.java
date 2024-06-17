@@ -1,5 +1,6 @@
 package school.sptech.northink.projetonorthink.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Estudio {
     private String descricao;
 
     @OneToOne
+    @JsonBackReference
     private Usuario usuario;
 
     @OneToOne

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 import school.sptech.northink.projetonorthink.domain.service.usuario.EstudioService;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioCriacaoDto;
 
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class EstudioController {
 
     @Autowired
     private EstudioService service;
+
     @GetMapping
     public ResponseEntity<List<Estudio>> listar() {
         List<Estudio> estudios = service.listar();
@@ -41,12 +43,12 @@ public class EstudioController {
         return ResponseEntity.status(200).body(estudio);
     }
 
-    @PostMapping("/shows/{showId}")
+    @PostMapping("/{id}")
     public ResponseEntity<Estudio> salvar(
-            @PathVariable  Long usuarioId,
-            @Valid @RequestBody Estudio estudio
+            @PathVariable  Long id,
+            @Valid @RequestBody EstudioCriacaoDto estudioCriacaoDto
     ) {
-        Estudio estudioSalvo = this.service.salvar(estudio, usuarioId);
+        Estudio estudioSalvo = this.service.salvar(estudioCriacaoDto);
 
         return ResponseEntity.status(201).body(estudioSalvo);
     }

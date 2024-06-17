@@ -79,7 +79,9 @@ public class Usuario {
     @OneToMany(mappedBy = "fkUsuario")
     private List<Tatuagem> tatuagens;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fkEstudio")
+    @JsonManagedReference
     private Estudio estudio;
 
 }

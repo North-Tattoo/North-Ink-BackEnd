@@ -71,6 +71,10 @@ public class UsuarioService {
         });
     }
 
+    public Usuario salvar(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
     public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
 
         final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
@@ -204,9 +208,11 @@ public class UsuarioService {
         GerenciadorDeArquivoCSV.gravaArquivoCsv(listaOrdenada, nomeArquivo);
     }
 
-    public List<UsuarioListagemGeralDto> retornarUsuariosGeral(){
-        usuarioRepository.findAll();
-        return null;
+    public List<UsuarioListagemGeralDto> retornarUsuariosGeral() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarios.stream()
+                .map(UsuarioMapper::toUsuarioListagemGeralDto)
+                .collect(Collectors.toList());
     }
 
     public UsuarioListagemPortfolioDto retornarPortfolioUsuario(Long portifolioId) {

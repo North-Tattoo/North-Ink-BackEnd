@@ -2,6 +2,7 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudi
 
 import school.sptech.northink.projetonorthink.domain.entity.Estudio;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
+import school.sptech.northink.projetonorthink.domain.service.usuario.UsuarioService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
 import java.util.List;
@@ -34,14 +35,17 @@ public class EstudioMapper {
 //    }
 
     // convertendo uma dto para um entidade
-    public static Estudio toEntity(EstudioCriacaoDto estudioCriacaoDto) {
+    public static Estudio toEntity(EstudioCriacaoDto estudioCriacaoDto, UsuarioService usuarioService) {
         if (estudioCriacaoDto == null) return null;
 
         Estudio estudio = new Estudio();
 
         estudio.setNome(estudioCriacaoDto.getNome());
         estudio.setDescricao(estudioCriacaoDto.getDescricao());
-        estudio.setUsuario(estudioCriacaoDto.getFkUsuario());
+        if (estudioCriacaoDto.getFkUsuario() != null) {
+            Usuario usuario = usuarioService.porId(estudioCriacaoDto.getFkUsuario());
+            estudio.setUsuario(usuario);
+        }
 
         return estudio;
     }

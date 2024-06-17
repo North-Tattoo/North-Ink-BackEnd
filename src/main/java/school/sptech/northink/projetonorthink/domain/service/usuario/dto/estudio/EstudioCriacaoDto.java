@@ -21,7 +21,7 @@ public class EstudioCriacaoDto {
     @Size(max = 500)
     private String descricao;
 
-    private Usuario fkUsuario;
+    private Long fkUsuario;
 
 
 }

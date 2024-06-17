@@ -140,6 +140,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuariosPorEstilo);
     }
 
+    @GetMapping("/geral")
     public ResponseEntity<List<UsuarioListagemGeralDto>> retornarUsuariosGeral() {
         List<UsuarioListagemGeralDto> usuarios = usuarioService.retornarUsuariosGeral();
         return ResponseEntity.status(HttpStatus.OK).body(usuarios);

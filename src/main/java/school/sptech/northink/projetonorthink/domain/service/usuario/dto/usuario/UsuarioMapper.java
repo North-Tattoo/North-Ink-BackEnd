@@ -74,6 +74,18 @@ public class UsuarioMapper {
         return usuarioListagemDto;
     }
 
+    public static UsuarioListagemGeralDto toUsuarioListagemGeralDto(Usuario usuario) {
+        if (usuario == null) return null;
+
+        UsuarioListagemGeralDto usuarioListagemGeralDto = new UsuarioListagemGeralDto();
+        usuarioListagemGeralDto.setNome(usuario.getNome());
+        usuarioListagemGeralDto.setPrecoMin(usuario.getPrecoMinimo());
+        usuarioListagemGeralDto.setEstilos(usuario.getEstilos());
+        usuarioListagemGeralDto.setEstudio(usuario.getEstudio());
+
+        return usuarioListagemGeralDto;
+    }
+
 
 
     private static List<UsuarioListagemDto.EstiloDto> toEstiloDto(List<Estilo> entities) {
