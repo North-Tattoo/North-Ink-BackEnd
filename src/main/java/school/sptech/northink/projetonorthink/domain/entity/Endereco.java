@@ -26,6 +26,7 @@ public class Endereco {
     private String estado;
 
     @OneToOne
+    @JoinColumn(name = "fkEstudio")
     @JsonBackReference
     private Estudio estudio;
 
