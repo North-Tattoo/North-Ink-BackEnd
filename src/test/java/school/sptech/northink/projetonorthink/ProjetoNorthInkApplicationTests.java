@@ -1,5 +1,4 @@
 package school.sptech.northink.projetonorthink;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,7 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ProjetoNorthInkApplicationTests {
 
 	@Test
+
 	void contextLoads() {
+
 	}
+
 
 }
