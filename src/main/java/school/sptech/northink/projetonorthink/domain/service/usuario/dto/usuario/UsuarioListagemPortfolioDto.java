@@ -13,15 +13,13 @@ public class UsuarioListagemPortfolioDto {
     private Long id;
     private String fotoPerfil;
     private String nome;
+    private String sobrenome;
     private Double valorMin;
     private String anosExperiencia;
     private String resumo;
-
-    private String descricao;
+    private String telefone;
     private String instagram;
-
     private List<Estilo> estilos;
-
     private Estudio estudio;
 
     @Data

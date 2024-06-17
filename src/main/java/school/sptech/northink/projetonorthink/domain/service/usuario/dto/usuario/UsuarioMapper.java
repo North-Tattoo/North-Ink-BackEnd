@@ -135,10 +135,11 @@ public class UsuarioMapper {
         usuarioPortfolioDto.setId(usuario.getId());
         usuarioPortfolioDto.setFotoPerfil(usuario.getFotoPerfil());
         usuarioPortfolioDto.setNome(usuario.getNome());
+        usuarioPortfolioDto.setSobrenome(usuario.getSobrenome());
         usuarioPortfolioDto.setValorMin(usuario.getPrecoMinimo());
         usuarioPortfolioDto.setAnosExperiencia(usuario.getAnosExperiencia());
         usuarioPortfolioDto.setResumo(usuario.getResumo());
-        usuarioPortfolioDto.setDescricao(usuario.getDescricao());
+        usuarioPortfolioDto.setTelefone(usuario.getCelular());
         usuarioPortfolioDto.setInstagram(usuario.getInstagram());
         usuarioPortfolioDto.setEstilos(usuario.getEstilos());
         usuarioPortfolioDto.setEstudio(usuario.getEstudio());
