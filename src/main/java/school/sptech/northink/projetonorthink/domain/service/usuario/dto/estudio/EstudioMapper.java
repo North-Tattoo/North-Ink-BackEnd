@@ -21,19 +21,6 @@ public class EstudioMapper {
         return estudio;
     }
 
-
-    // metodo convertendo a entity em uma dto
-//    public static EstudioListagemDto toDto(Estudio estudio) {
-//        if (estudio == null) return null;
-//
-//        EstudioListagemDto estudioListagemDto = new EstudioListagemDto();
-//
-//        estudioListagemDto.setNome(estudio.getNome());
-//        estudioListagemDto.setDescricao(estudio.getDescricao());
-//
-//        return estudioListagemDto;
-//    }
-
     // convertendo uma dto para um entidade
     public static Estudio toEntity(EstudioCriacaoDto estudioCriacaoDto, UsuarioService usuarioService) {
         if (estudioCriacaoDto == null) return null;
@@ -50,16 +37,4 @@ public class EstudioMapper {
         return estudio;
     }
 
-//    public static List<EstudioListagemDto> toDto(List<Estudio> entities) {
-//        return entities.stream().map(EstudioMapper::toDto).toList();
-//    }
-//
-//    public static Estudio atualizarEstudio(Estudio estudioExistente, EstudioAtualizacaoDto estudioAtualizacaoDto) {
-//
-//        estudioExistente.setNome(estudioAtualizacaoDto.getNome());
-//        estudioExistente.setDescricao(estudioAtualizacaoDto.getDescricao());
-//
-//
-//        return estudioExistente;
-//    }
 }

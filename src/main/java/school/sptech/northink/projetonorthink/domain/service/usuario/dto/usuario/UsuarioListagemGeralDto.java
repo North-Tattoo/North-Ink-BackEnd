@@ -10,12 +10,11 @@ import java.util.List;
 @Data
 public class UsuarioListagemGeralDto {
 
+    private Long id;
     private String nome;
-
+    private String sobrenome;
     private Double precoMin;
-
     private List<Estilo> estilos;
-
     private Estudio estudio;
 
     @Data

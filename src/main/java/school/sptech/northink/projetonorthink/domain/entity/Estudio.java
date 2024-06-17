@@ -1,6 +1,7 @@
 package school.sptech.northink.projetonorthink.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,8 @@ public class Estudio {
     @JsonBackReference
     private Usuario usuario;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fkEndereco")
+    @JsonManagedReference
     private Endereco endereco;
 }

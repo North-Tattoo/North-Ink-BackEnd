@@ -78,7 +78,9 @@ public class UsuarioMapper {
         if (usuario == null) return null;
 
         UsuarioListagemGeralDto usuarioListagemGeralDto = new UsuarioListagemGeralDto();
+        usuarioListagemGeralDto.setId(usuario.getId());
         usuarioListagemGeralDto.setNome(usuario.getNome());
+        usuarioListagemGeralDto.setSobrenome(usuario.getSobrenome());
         usuarioListagemGeralDto.setPrecoMin(usuario.getPrecoMinimo());
         usuarioListagemGeralDto.setEstilos(usuario.getEstilos());
         usuarioListagemGeralDto.setEstudio(usuario.getEstudio());

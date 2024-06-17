@@ -2,6 +2,9 @@ package school.sptech.northink.projetonorthink.domain.service.usuario.dto.endere
 
 import school.sptech.northink.projetonorthink.domain.entity.Endereco;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
+import school.sptech.northink.projetonorthink.domain.entity.Estudio;
+import school.sptech.northink.projetonorthink.domain.entity.Usuario;
+import school.sptech.northink.projetonorthink.domain.service.usuario.EstudioService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloAtualizacaoDto;
 
 import java.util.List;
@@ -21,20 +24,15 @@ public class EnderecoMapper {
         return enderecoListagemDto;
     }
 
-    public static Endereco toEntity(EnderecoCriacaoDto enderecoCriacaoDto) {
-        if (enderecoCriacaoDto == null) return null;
-
+    public static Endereco toEntity(EnderecoCriacaoDto enderecoDto, EstudioService estudioService) {
         Endereco endereco = new Endereco();
-
-        endereco.setRua(endereco.getRua());
-        endereco.setNumero(endereco.getNumero());
-        endereco.setComplemento(endereco.getComplemento());
-        endereco.setCEP(enderecoCriacaoDto.getCEP());
-        endereco.setBairro(enderecoCriacaoDto.getBairro());
-        endereco.setCidade(enderecoCriacaoDto.getCidade());
-        endereco.setEstado(enderecoCriacaoDto.getEstado());
-        endereco.setEstudio(endereco.getEstudio());
-        // salvar na entidade qual a fk do estudio que está vinculado ao endereco
+        endereco.setRua(enderecoDto.getRua());
+        endereco.setNumero(enderecoDto.getNumero());
+        endereco.setComplemento(enderecoDto.getComplemento());
+        endereco.setCep(enderecoDto.getCep());
+        endereco.setBairro(enderecoDto.getBairro());
+        endereco.setCidade(enderecoDto.getCidade());
+        endereco.setEstado(enderecoDto.getEstado());
         return endereco;
     }
 
@@ -50,7 +48,7 @@ public class EnderecoMapper {
         enderecoExistente.setRua(enderecoAtualizacaoDto.getRua());
         enderecoExistente.setNumero(enderecoAtualizacaoDto.getNumero());
         enderecoExistente.setComplemento(enderecoAtualizacaoDto.getComplemento());
-        enderecoExistente.setCEP(enderecoAtualizacaoDto.getCEP());
+        enderecoExistente.setCep(enderecoAtualizacaoDto.getCEP());
         enderecoExistente.setBairro(enderecoAtualizacaoDto.getBairro());
         enderecoExistente.setCidade(enderecoAtualizacaoDto.getCidade());
         enderecoExistente.setEstado(enderecoAtualizacaoDto.getEstado());

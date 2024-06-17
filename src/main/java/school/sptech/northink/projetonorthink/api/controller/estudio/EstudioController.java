@@ -48,7 +48,7 @@ public class EstudioController {
             @PathVariable  Long id,
             @Valid @RequestBody EstudioCriacaoDto estudioCriacaoDto
     ) {
-        Estudio estudioSalvo = this.service.salvar(estudioCriacaoDto);
+        Estudio estudioSalvo = this.service.criar(estudioCriacaoDto);
 
         return ResponseEntity.status(201).body(estudioSalvo);
     }

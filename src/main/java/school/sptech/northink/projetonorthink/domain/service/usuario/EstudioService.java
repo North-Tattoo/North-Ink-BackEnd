@@ -1,6 +1,7 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,21 +17,23 @@ import java.util.List;
 @Service
 public class EstudioService {
 
-    private final EstudioRepository repository;
+    @Autowired
+    private final EstudioRepository estudioRepository;
 
+    @Autowired
     private final UsuarioService usuarioService;
 
     public List<Estudio> listar() {
-        return repository.findAll();
+        return estudioRepository.findAll();
     }
 
     public Estudio buscarPorId(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return estudioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Estudio salvar(EstudioCriacaoDto estudioCriacaoDto) {
+    public Estudio criar(EstudioCriacaoDto estudioCriacaoDto) {
         Estudio estudio = EstudioMapper.toEntity(estudioCriacaoDto, usuarioService);
-        Estudio estudioSalvo = repository.save(estudio);
+        Estudio estudioSalvo = estudioRepository.save(estudio);
 
         // Buscar o usuário correspondente
         Usuario usuario = usuarioService.porId(estudioCriacaoDto.getFkUsuario());
@@ -42,8 +45,13 @@ public class EstudioService {
         return estudioSalvo;
     }
 
+    public Estudio salvar(Estudio estudio) {
+        return estudioRepository.save(estudio);
+    }
+
+
     public void deletar(Long id) {
-        if (!repository.existsById(id)) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        repository.deleteById(id);
+        if (!estudioRepository.existsById(id)) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        estudioRepository.deleteById(id);
     }
 }

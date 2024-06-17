@@ -22,7 +22,7 @@ public class EnderecoCriacaoDto {
 
     @NotNull
     @Min(value = 8)
-    private String CEP;
+    private String cep;
 
     @NotNull
     private String bairro;
@@ -33,5 +33,5 @@ public class EnderecoCriacaoDto {
     @NotNull
     private String estado;
 
-    private Estudio fkEstudio;
+    private Long fkEstudio;
 }
