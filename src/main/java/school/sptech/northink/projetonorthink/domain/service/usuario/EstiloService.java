@@ -47,7 +47,7 @@ public class EstiloService {
         return estiloRepository.findEstiloMaisCadastrado();
     }
 
-    public List<EstiloCountDto> findTop3Estilos() {
+    public List<Estilo> findTop3Estilos() {
         return estiloRepository.findTop3Estilos();
     }
 }

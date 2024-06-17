@@ -15,7 +15,7 @@ public class DashboardService {
     @Autowired
     private EstiloService estiloService;
 
-    public List<EstiloCountDto> getTop3Estilos() {
+    public List<Estilo> getTop3Estilos() {
         return estiloService.findTop3Estilos();
     }
 

@@ -14,5 +14,5 @@ public interface EstiloRepository extends JpaRepository<Estilo, Long > {
 
     @Query("SELECT new school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloCountDto(e.nome, COUNT(e)) " +
             "FROM Estilo e GROUP BY e.nome ORDER BY COUNT(e) DESC")
-    List<EstiloCountDto> findTop3Estilos();
+    List<Estilo> findTop3Estilos();
 }
