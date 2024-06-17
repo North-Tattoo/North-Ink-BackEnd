@@ -32,6 +32,13 @@ public class EstudioService {
     }
 
     public Estudio criar(EstudioCriacaoDto estudioCriacaoDto) {
+        // Verificar se já existe um estúdio com o mesmo usuario_id
+        Usuario usuarioExistente = usuarioService.porId(estudioCriacaoDto.getFkUsuario());
+        if (usuarioExistente != null && usuarioExistente.getEstudio() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já tem um estúdio");
+        }
+
+        // Se não existir, prosseguir com a criação do estúdio
         Estudio estudio = EstudioMapper.toEntity(estudioCriacaoDto, usuarioService);
         Estudio estudioSalvo = estudioRepository.save(estudio);
 

@@ -43,9 +43,8 @@ public class EstudioController {
         return ResponseEntity.status(200).body(estudio);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     public ResponseEntity<Estudio> salvar(
-            @PathVariable  Long id,
             @Valid @RequestBody EstudioCriacaoDto estudioCriacaoDto
     ) {
         Estudio estudioSalvo = this.service.criar(estudioCriacaoDto);

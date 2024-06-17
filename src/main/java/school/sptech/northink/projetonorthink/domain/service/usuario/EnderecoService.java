@@ -39,17 +39,25 @@ public class EnderecoService {
     }
 
     public Endereco salvar(EnderecoCriacaoDto enderecoCriacaoDto, Long fkEstudio) {
-        Endereco endereco = EnderecoMapper.toEntity(enderecoCriacaoDto, estudioService);
-
+        // Buscar o Estudio correspondente
         Estudio estudio = estudioRepository.findById(fkEstudio)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudio não encontrado"));
+
+        // Verificar se o Estudio já tem um Endereco
+        if (estudio.getEndereco() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estudio já tem um Endereco");
+        }
+
+        // Se não tiver, prosseguir com a criação do Endereco
+        Endereco endereco = EnderecoMapper.toEntity(enderecoCriacaoDto, estudioService);
         endereco.setEstudio(estudio);
 
         Endereco enderecoSalvo = enderecoRepository.save(endereco);
 
-        // Update the Estudio with the saved Endereco and save the Estudio
+        // Atualizar o Estudio com o Endereco salvo e salvar o Estudio
         estudio.setEndereco(enderecoSalvo);
         estudioService.salvar(estudio);
+
         return enderecoSalvo;
     }
 
