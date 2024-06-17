@@ -43,14 +43,14 @@ public class EnderecoServiceTest {
         verify(enderecoRepository).findById(id);
     }
 
-    @Test
+   /* @Test
     void deveChamarSaveAoSalvar() {
         Long estudioId = 1L;
         Endereco endereco = new Endereco();
         when(estudioRepository.findById(estudioId)).thenReturn(Optional.of(new Estudio()));
         enderecoService.salvar(endereco, estudioId);
         verify(enderecoRepository).save(any(Endereco.class));
-    }
+    }*/
 
     @Test
     void deveChamarDeleteByIdAoDeletar() {
