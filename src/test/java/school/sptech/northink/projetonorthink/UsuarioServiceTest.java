@@ -73,5 +73,4 @@ public class UsuarioServiceTest {
         verify(usuarioRepository).delete(any(Usuario.class));
     }
 
-    // Adicione mais testes para outros métodos em UsuarioService
 }

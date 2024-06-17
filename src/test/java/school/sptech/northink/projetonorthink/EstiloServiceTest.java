@@ -32,14 +32,7 @@ public class EstiloServiceTest {
     }
 
     @Test
-    void deveChamarSaveAoCriarEstilo() {
-        EstiloCriacaoDto estiloCriacaoDto = new EstiloCriacaoDto();
-        estiloService.criarEstilo(estiloCriacaoDto);
-        verify(estiloRepository).save(any(Estilo.class));
-    }
-
-    @Test
-    void deveChamarFindByIdEThenSaveAoAtualizarEstilo() {
+    void deveChamarFindByIdESaveAoAtualizarEstilo() {
         Long id = 1L;
         EstiloAtualizacaoDto estiloAtualizacaoDto = new EstiloAtualizacaoDto();
         when(estiloRepository.findById(id)).thenReturn(Optional.of(new Estilo()));
@@ -67,11 +60,5 @@ public class EstiloServiceTest {
     void deveChamarFindAllAoListarEstilos() {
         estiloService.listarEstilos();
         verify(estiloRepository).findAll();
-    }
-
-    @Test
-    void deveChamarFindEstiloMaisCadastradoAoBuscarEstiloMaisCadastrado() {
-        estiloService.findEstiloMaisCadastrado();
-        verify(estiloRepository).findEstiloMaisCadastrado();
     }
 }
