@@ -65,6 +65,7 @@ public class UsuarioMapper {
         usuarioListagemDto.setEmail(usuario.getEmail());
         //usuarioListagemDto.setSenha(usuario.getSenha());
         usuarioListagemDto.setResumo(usuario.getResumo());
+        usuarioListagemDto.setAnosExperiencia(usuario.getAnosExperiencia());
         usuarioListagemDto.setPrecoMinimo(usuario.getPrecoMinimo());
         usuarioListagemDto.setInstagram(usuario.getInstagram());
         List<EstiloListagemDto> estilosListagemDto = EstiloMapper.toDto(usuario.getEstilos());
