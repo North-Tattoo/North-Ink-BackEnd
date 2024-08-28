@@ -8,6 +8,8 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.EnderecoSer
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco.EnderecoCriacaoDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco.EnderecoListagemDto;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/enderecos")
 public class EnderecoController {
@@ -21,4 +23,8 @@ public class EnderecoController {
         return ResponseEntity.ok(endereco);
     }
 
+    @GetMapping
+    public ResponseEntity<List<EnderecoListagemDto>> listar() {
+        return ResponseEntity.ok(enderecoService.listar());
+    }
 }

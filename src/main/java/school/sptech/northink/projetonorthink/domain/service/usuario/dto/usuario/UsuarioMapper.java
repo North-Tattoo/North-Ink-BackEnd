@@ -11,13 +11,6 @@ import java.util.stream.Collectors;
 
 public class UsuarioMapper {
 
-    // O que esta acontecento aqui é que estamos pegando as informações do front end e convertendo em uma entity
-
-    // me ajude a entender o que é um DTO
-
-
-
-
     public static Usuario of(UsuarioCriacaoDto usuarioCriacaoDto) {
         Usuario usuario = new Usuario();
 
@@ -63,7 +56,6 @@ public class UsuarioMapper {
         usuarioListagemDto.setCpf(usuario.getCpf());
         usuarioListagemDto.setCelular(usuario.getCelular());
         usuarioListagemDto.setEmail(usuario.getEmail());
-        //usuarioListagemDto.setSenha(usuario.getSenha());
         usuarioListagemDto.setResumo(usuario.getResumo());
         usuarioListagemDto.setAnosExperiencia(usuario.getAnosExperiencia());
         usuarioListagemDto.setPrecoMinimo(usuario.getPrecoMinimo());
@@ -89,26 +81,17 @@ public class UsuarioMapper {
         return usuarioListagemGeralDto;
     }
 
-
-
-    private static List<UsuarioListagemDto.EstiloDto> toEstiloDto(List<Estilo> entities) {
-        return entities.stream().map(e -> {
-            UsuarioListagemDto.EstiloDto dto = new UsuarioListagemDto.EstiloDto();
-            dto.setId(e.getId());
-            dto.setNome(e.getNome());
-            return dto;
-        }).toList();
-    }
-
     // Método sobrecarregado para mapear uma lista de entidades em uma lista de DTOs
     public static List<UsuarioListagemDto> toDto(List<Usuario> usuarios) {
         if (usuarios == null) return null;
         return usuarios.stream().map(UsuarioMapper::toDto).collect(Collectors.toList());
     }
 
-
-
-
+    /*
+    Este método abaixo não está sendo utilizado no momento (28/08/2024).
+    Ele deve ser chamado quando você precisar atualizar um usuário existente com base nos dados de um DTO de atualização.
+    Nese caso, essa atualização é feita no Menu na aba de perfil
+    - Daniel Zapatta 28/08/2024 */
     public static Usuario atualizarUsuario(Usuario usuarioExistente, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         // Atualize os campos do usuário existente com base nos dados do DTO de atualização
         usuarioExistente.setNome(usuarioAtualizacaoDto.getNome());
@@ -148,6 +131,8 @@ public class UsuarioMapper {
         return usuarioPortfolioDto;
     }
 
+    // Método usado para enviar dados necessários ao front-end para atualizar o portfólio do usuário
+    // Daniel Zapatta 28/08/2024
     public static UsuarioAtualizaçãoPortfolioDto toAtualizacaoPortfolioDto(Usuario usuario) {
         if (usuario == null) return null;
 
@@ -172,6 +157,8 @@ public class UsuarioMapper {
         return usuarioAtualizacaoPortfolioDto;
     }
 
+    // Método necessário para receber os dados do front-end e atualizar o portfólio do usuário
+    // Daniel Zapatta 28/08/2024
     public static Usuario atualizarUsuarioPortfolio(Usuario usuarioExistente, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
         // Atualize os campos do usuário existente com base nos dados do DTO de atualização
         usuarioExistente.setId(usuarioAtualizacaoPortfolioDto.getId());

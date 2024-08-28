@@ -36,13 +36,6 @@ public class EnderecoMapper {
         return endereco;
     }
 
-    public static Estilo atualizarEstilo(Estilo estiloExistente, EstiloAtualizacaoDto estiloAtualizacaoDto) {
-
-        estiloExistente.setNome(estiloAtualizacaoDto.getNome());
-
-        return estiloExistente;
-    }
-
     public static Endereco atualizarEndereco(Endereco enderecoExistente, EnderecoAtualizacaoDto enderecoAtualizacaoDto) {
 
         enderecoExistente.setRua(enderecoAtualizacaoDto.getRua());
@@ -54,10 +47,5 @@ public class EnderecoMapper {
         enderecoExistente.setEstado(enderecoAtualizacaoDto.getEstado());
 
         return enderecoExistente;
-    }
-
-    public static List<EnderecoListagemDto> toDto(List<Endereco> entities) {
-        // Aqui é utilizado um método que mapea um a um e reutilizado para poder fazer a passagem de lista sem duplicar código
-        return entities.stream().map(EnderecoMapper::toDto).toList();
     }
 }

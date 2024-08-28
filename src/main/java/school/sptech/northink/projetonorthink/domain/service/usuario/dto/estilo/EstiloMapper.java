@@ -1,12 +1,7 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo;
 
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
-import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem.TatuagemAtualizacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem.TatuagemCriacaoDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem.TatuagemListagemDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem.TatuagemMapper;
 
 import java.util.List;
 
@@ -49,23 +44,4 @@ public class EstiloMapper {
 
         return estilo;
     }
-
-    public static Estilo toEntityFromListagemDto(EstiloListagemDto dto, Usuario usuario){
-        if (dto == null) return null;
-
-        Estilo estilo = new Estilo();
-        estilo.setNome(dto.getNome());
-        estilo.setFkUsuario(usuario); // associa o estilo ao usuário
-
-        return estilo;
-    }
-
-    //public static Estilo toEntity(EstiloCriacaoDto dto){
-    //    if (dto == null) return null;
-    //
-    //    Estilo estilo = new Estilo();
-    //    estilo.setNome(dto.getNome());
-    //
-    //    return estilo;
-    //}
 }

@@ -11,11 +11,13 @@ import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.repository.EnderecoRepository;
 import school.sptech.northink.projetonorthink.domain.repository.EstudioRepository;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco.EnderecoCriacaoDto;
+import school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco.EnderecoListagemDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco.EnderecoMapper;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioCriacaoDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estudio.EstudioMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -30,8 +32,11 @@ public class EnderecoService {
     @Autowired
     private EstudioService estudioService;
 
-    public List<Endereco> listar() {
-        return enderecoRepository.findAll();
+    public List<EnderecoListagemDto> listar() {
+        List<Endereco> enderecos = enderecoRepository.findAll();
+        return enderecos.stream()
+                .map(EnderecoMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     public Endereco buscarPorId(Long id) {

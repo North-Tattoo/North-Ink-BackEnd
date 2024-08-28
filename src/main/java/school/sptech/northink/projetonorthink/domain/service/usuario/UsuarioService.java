@@ -13,14 +13,11 @@ import org.springframework.web.server.ResponseStatusException;
 import school.sptech.northink.projetonorthink.api.configuration.security.jwt.GerenciadorTokenJWT;
 import school.sptech.northink.projetonorthink.api.util.GerenciadorDeArquivoCSV;
 import school.sptech.northink.projetonorthink.api.util.ListaObj;
-import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository;
-import school.sptech.northink.projetonorthink.domain.repository.TatuagemRepository;
 import school.sptech.northink.projetonorthink.domain.repository.UsuarioRepository;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioLoginDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
-import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloMapper;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
 import java.io.IOException;
@@ -48,14 +45,11 @@ public class UsuarioService {
     @Autowired
     private EstiloRepository estiloRepository;
 
-//    @Autowired
-//    private BlobContainerClient blobContainerClient;
-
-
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 
+    // Método para criar um novo usuário
     public void criar(UsuarioCriacaoDto usuarioCriacaoDto) {
         final Usuario novoUsuario = UsuarioMapper.of(usuarioCriacaoDto);
         String senhaCriptografada = passwordEncoder.encode(novoUsuario.getSenha());
@@ -71,10 +65,12 @@ public class UsuarioService {
         });
     }
 
+    // Método para salvar um usuário
     public Usuario salvar(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
+    // Método para autenticar um usuário
     public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
 
         final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
@@ -85,7 +81,7 @@ public class UsuarioService {
         Usuario usuarioAutenticado =
                 usuarioRepository.findByEmail(usuarioLoginDto.getEmail())
                         .orElseThrow(
-                                () -> new ResponseStatusException(404, "Email od usuário não cadastrado.", null)
+                                () -> new ResponseStatusException(404, "Email do usuário não cadastrado.", null)
                         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -95,6 +91,7 @@ public class UsuarioService {
         return UsuarioMapper.of(usuarioAutenticado, token);
     }
 
+    // Método para listar todos os usuários
     public List<UsuarioListagemDto> listarUsuarios() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         List<UsuarioListagemDto> usuarioListagemDtos = new ArrayList<>();
@@ -104,19 +101,21 @@ public class UsuarioService {
         return usuarioListagemDtos;
     }
 
+    // Método para listar um usuário por ID
     public UsuarioListagemDto listarUsuarioId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
         return UsuarioMapper.toDto(usuario);
     }
 
+    // Método para buscar o portfólio de um usuário por ID
     public UsuarioListagemPortfolioDto buscaPortfolioId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
         return UsuarioMapper.toPortfolioDto(usuario);
     }
 
-
+    // Método para atualizar um usuário
     public UsuarioTokenDto atualizarUsuario(Long id, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
@@ -148,6 +147,7 @@ public class UsuarioService {
         }
     }
 
+    // Método para atualizar o portfólio de um usuário
     public Usuario atualizarUsuarioPortfolio(Long id, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
@@ -164,6 +164,7 @@ public class UsuarioService {
         }
     }
 
+    // Método para deletar um usuário
     public Usuario deletarUsuario(Long id) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
@@ -180,6 +181,7 @@ public class UsuarioService {
         return null;
     }
 
+    // Método para ordenar usuários por nome
     public ListaObj<Usuario> ordenaPorNome(List<Usuario> usuarios) {
         ListaObj<Usuario> listaObj = new ListaObj<>(usuarios.size());
 
@@ -202,12 +204,14 @@ public class UsuarioService {
         return listaObj;
     }
 
+    // Método para gravar usuários ordenados por nome
     public void gravarUsuariosOrdenadosPorNome(String nomeArquivo) {
         List<Usuario> usuarios = usuarioRepository.findAll();
         ListaObj<Usuario> listaOrdenada = ordenaPorNome(usuarios);
         GerenciadorDeArquivoCSV.gravaArquivoCsv(listaOrdenada, nomeArquivo);
     }
 
+    // Método para retornar usuários gerais
     public List<UsuarioListagemGeralDto> retornarUsuariosGeral() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         return usuarios.stream()
@@ -215,21 +219,21 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    public UsuarioListagemPortfolioDto retornarPortfolioUsuario(Long portifolioId) {
-
-        Usuario usuario = usuarioRepository.findById(portifolioId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Show não encontrado"));
-
-        return UsuarioMapper.toPortfolioDto(usuario);
-    }
-
+    // Método para retornar usuários por estilo
     public List<UsuarioListagemDto> retornaUsuariosPorEstilo(UsuarioListagemDto usuario){
         return usuarioRepository.findUsuarioByEstilos(usuario.getEstilos());
     }
 
+    // Método para buscar um usuário por ID
+    public Usuario porId(Long id) {
+        return usuarioRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
+        );
+    }
+
     public List<String> uploadFotoPerfil(MultipartFile[] files, Long id) throws IOException {
         List<String> fileUrls = new ArrayList<>();
-
+//
 //        for (MultipartFile file : files) {
 //            if (!file.isEmpty()) {
 //                String fileName = id + "/" + file.getOriginalFilename(); // You can customize the file naming strategy here
@@ -247,12 +251,6 @@ public class UsuarioService {
 //            }
 //        }
         return fileUrls;
-    }
-
-    public Usuario porId(Long id) {
-        return usuarioRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
-        );
     }
 }
 
