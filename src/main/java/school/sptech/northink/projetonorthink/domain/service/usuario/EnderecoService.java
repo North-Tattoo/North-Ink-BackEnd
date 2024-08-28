@@ -32,6 +32,12 @@ public class EnderecoService {
     @Autowired
     private EstudioService estudioService;
 
+    /**
+     * Este método retorna uma lista de endereços mapeados para o DTO `EnderecoListagemDto`.
+     * Ele faz isso buscando todos os endereços do repositório e mapeando cada um para o DTO usando o `EnderecoMapper`.
+     *
+     * @return Uma lista de `EnderecoListagemDto`.
+     */
     public List<EnderecoListagemDto> listar() {
         List<Endereco> enderecos = enderecoRepository.findAll();
         return enderecos.stream()
@@ -39,10 +45,26 @@ public class EnderecoService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Este método busca um endereço pelo seu ID.
+     * Se o endereço não for encontrado, ele lança uma exceção `ResponseStatusException` com o status `NOT_FOUND`.
+     *
+     * @param id O ID do endereço a ser buscado.
+     * @return O `Endereco` encontrado.
+     */
     public Endereco buscarPorId(Long id) {
         return enderecoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingresso não encontrado"));
     }
 
+    /**
+     * Este método salva um novo endereço no repositório.
+     * Ele primeiro verifica se o estúdio correspondente já tem um endereço. Se tiver, lança uma exceção.
+     * Se não tiver, ele cria um novo endereço, salva no repositório e atualiza o estúdio com o endereço salvo.
+     *
+     * @param enderecoCriacaoDto O DTO contendo as informações para a criação do endereço.
+     * @param fkEstudio O ID do estúdio correspondente.
+     * @return O `Endereco` salvo.
+     */
     public Endereco salvar(EnderecoCriacaoDto enderecoCriacaoDto, Long fkEstudio) {
         // Buscar o Estudio correspondente
         Estudio estudio = estudioRepository.findById(fkEstudio)
@@ -66,6 +88,12 @@ public class EnderecoService {
         return enderecoSalvo;
     }
 
+    /**
+     * Este método deleta um endereço pelo seu ID.
+     * Se o endereço não for encontrado, ele lança uma exceção `ResponseStatusException` com o status `NOT_FOUND`.
+     *
+     * @param id O ID do endereço a ser deletado.
+     */
     public void deletar(Long id) {
         if (!enderecoRepository.existsById(id)) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingresso não encontrado");
         enderecoRepository.deleteById(id);

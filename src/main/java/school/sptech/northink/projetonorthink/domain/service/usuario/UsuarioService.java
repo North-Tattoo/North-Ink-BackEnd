@@ -45,11 +45,22 @@ public class UsuarioService {
     @Autowired
     private EstiloRepository estiloRepository;
 
+    /**
+     * Construtor da classe UsuarioService.
+     *
+     * @param usuarioRepository O repositório de usuários.
+     */
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // Método para criar um novo usuário
+    /**
+     * Método para criar um novo usuário.
+     * Ele primeiro mapeia o DTO de criação do usuário para uma entidade de usuário, criptografa a senha do usuário,
+     * salva o usuário no repositório e, em seguida, salva cada estilo do usuário no repositório de estilos.
+     *
+     * @param usuarioCriacaoDto O DTO contendo as informações para a criação do usuário.
+     */
     public void criar(UsuarioCriacaoDto usuarioCriacaoDto) {
         final Usuario novoUsuario = UsuarioMapper.of(usuarioCriacaoDto);
         String senhaCriptografada = passwordEncoder.encode(novoUsuario.getSenha());
@@ -65,12 +76,25 @@ public class UsuarioService {
         });
     }
 
-    // Método para salvar um usuário
+    /**
+     * Método para salvar um usuário.
+     * Ele salva o usuário fornecido no repositório de usuários.
+     *
+     * @param usuario O usuário a ser salvo.
+     * @return O usuário salvo.
+     */
     public Usuario salvar(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    // Método para autenticar um usuário
+    /**
+     * Método para autenticar um usuário.
+     * Ele primeiro cria um token de autenticação com as credenciais fornecidas, autentica o token,
+     * busca o usuário autenticado no repositório de usuários, gera um token JWT e retorna o usuário autenticado e o token.
+     *
+     * @param usuarioLoginDto O DTO contendo as credenciais de login do usuário.
+     * @return O DTO contendo o usuário autenticado e o token JWT.
+     */
     public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
 
         final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
@@ -91,7 +115,12 @@ public class UsuarioService {
         return UsuarioMapper.of(usuarioAutenticado, token);
     }
 
-    // Método para listar todos os usuários
+    /**
+     * Método para listar todos os usuários.
+     * Ele busca todos os usuários no repositório de usuários e mapeia cada usuário para um DTO de listagem de usuários.
+     *
+     * @return A lista de DTOs de listagem de usuários.
+     */
     public List<UsuarioListagemDto> listarUsuarios() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         List<UsuarioListagemDto> usuarioListagemDtos = new ArrayList<>();
@@ -101,21 +130,41 @@ public class UsuarioService {
         return usuarioListagemDtos;
     }
 
-    // Método para listar um usuário por ID
+    /**
+     * Método para listar um usuário por ID.
+     * Ele busca o usuário com o ID fornecido no repositório de usuários e mapeia o usuário para um DTO de listagem de usuários.
+     *
+     * @param id O ID do usuário a ser listado.
+     * @return O DTO de listagem do usuário.
+     */
     public UsuarioListagemDto listarUsuarioId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
         return UsuarioMapper.toDto(usuario);
     }
 
-    // Método para buscar o portfólio de um usuário por ID
+    /**
+     * Método para buscar o portfólio de um usuário por ID.
+     * Ele busca o usuário com o ID fornecido no repositório de usuários e mapeia o usuário para um DTO de listagem de portfólio de usuários.
+     *
+     * @param id O ID do usuário cujo portfólio deve ser buscado.
+     * @return O DTO de listagem de portfólio do usuário.
+     */
     public UsuarioListagemPortfolioDto buscaPortfolioId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Usuário não encontrado com o ID: " + id));
         return UsuarioMapper.toPortfolioDto(usuario);
     }
 
-    // Método para atualizar um usuário
+    /**
+     * Método para atualizar um usuário.
+     * Ele busca o usuário com o ID fornecido no repositório de usuários, atualiza os campos do usuário com base no DTO de atualização,
+     * salva o usuário atualizado no repositório de usuários, gera um novo token JWT e retorna o usuário atualizado e o token.
+     *
+     * @param id O ID do usuário a ser atualizado.
+     * @param usuarioAtualizacaoDto O DTO contendo as informações para a atualização do usuário.
+     * @return O DTO contendo o usuário atualizado e o token JWT.
+     */
     public UsuarioTokenDto atualizarUsuario(Long id, UsuarioAtualizacaoDto usuarioAtualizacaoDto) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
@@ -147,7 +196,15 @@ public class UsuarioService {
         }
     }
 
-    // Método para atualizar o portfólio de um usuário
+    /**
+     * Método para atualizar o portfólio de um usuário.
+     * Ele busca o usuário com o ID fornecido no repositório de usuários, atualiza o portfólio do usuário com base no DTO de atualização do portfólio,
+     * e salva o usuário atualizado no repositório de usuários.
+     *
+     * @param id O ID do usuário cujo portfólio deve ser atualizado.
+     * @param usuarioAtualizacaoPortfolioDto O DTO contendo as informações para a atualização do portfólio do usuário.
+     * @return O usuário com o portfólio atualizado.
+     */
     public Usuario atualizarUsuarioPortfolio(Long id, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
@@ -164,7 +221,13 @@ public class UsuarioService {
         }
     }
 
-    // Método para deletar um usuário
+    /**
+     * Método para deletar um usuário.
+     * Ele busca o usuário com o ID fornecido no repositório de usuários e, se o usuário for encontrado, o deleta do repositório.
+     *
+     * @param id O ID do usuário a ser deletado.
+     * @return null.
+     */
     public Usuario deletarUsuario(Long id) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
@@ -181,7 +244,13 @@ public class UsuarioService {
         return null;
     }
 
-    // Método para ordenar usuários por nome
+    /**
+     * Método para ordenar usuários por nome.
+     * Ele cria uma nova lista de usuários, adiciona todos os usuários à lista e, em seguida, ordena a lista por nome.
+     *
+     * @param usuarios A lista de usuários a ser ordenada.
+     * @return A lista de usuários ordenada por nome.
+     */
     public ListaObj<Usuario> ordenaPorNome(List<Usuario> usuarios) {
         ListaObj<Usuario> listaObj = new ListaObj<>(usuarios.size());
 
@@ -204,14 +273,24 @@ public class UsuarioService {
         return listaObj;
     }
 
-    // Método para gravar usuários ordenados por nome
+    /**
+     * Método para gravar usuários ordenados por nome.
+     * Ele busca todos os usuários no repositório de usuários, ordena a lista de usuários por nome e grava a lista ordenada em um arquivo CSV.
+     *
+     * @param nomeArquivo O nome do arquivo CSV onde a lista de usuários ordenada será gravada.
+     */
     public void gravarUsuariosOrdenadosPorNome(String nomeArquivo) {
         List<Usuario> usuarios = usuarioRepository.findAll();
         ListaObj<Usuario> listaOrdenada = ordenaPorNome(usuarios);
         GerenciadorDeArquivoCSV.gravaArquivoCsv(listaOrdenada, nomeArquivo);
     }
 
-    // Método para retornar usuários gerais
+    /**
+     * Método para retornar usuários gerais.
+     * Ele busca todos os usuários no repositório de usuários e mapeia cada usuário para um DTO de listagem geral de usuários.
+     *
+     * @return A lista de DTOs de listagem geral de usuários.
+     */
     public List<UsuarioListagemGeralDto> retornarUsuariosGeral() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         return usuarios.stream()
@@ -219,12 +298,24 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    // Método para retornar usuários por estilo
+    /**
+     * Método para retornar usuários por estilo.
+     * Ele busca usuários no repositório de usuários que têm os estilos fornecidos e mapeia cada usuário para um DTO de listagem de usuários.
+     *
+     * @param usuario O DTO de listagem de usuários contendo os estilos pelos quais buscar usuários.
+     * @return A lista de DTOs de listagem de usuários.
+     */
     public List<UsuarioListagemDto> retornaUsuariosPorEstilo(UsuarioListagemDto usuario){
         return usuarioRepository.findUsuarioByEstilos(usuario.getEstilos());
     }
 
-    // Método para buscar um usuário por ID
+    /**
+     * Método para buscar um usuário por ID.
+     * Ele busca o usuário com o ID fornecido no repositório de usuários.
+     *
+     * @param id O ID do usuário a ser buscado.
+     * @return O usuário encontrado.
+     */
     public Usuario porId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
