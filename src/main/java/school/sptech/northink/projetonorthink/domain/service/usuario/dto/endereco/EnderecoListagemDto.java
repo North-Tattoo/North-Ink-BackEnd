@@ -1,4 +1,5 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,9 @@ public class EnderecoListagemDto {
     private Long id;
     private String rua;
     private Integer numero;
+    private String cep;
     private String bairro;
+    private String cidade;
+    private String estado;
 
 }
