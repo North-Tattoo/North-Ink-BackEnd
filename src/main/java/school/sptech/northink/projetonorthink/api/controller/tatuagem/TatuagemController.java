@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
 import school.sptech.northink.projetonorthink.domain.service.usuario.TatuagemService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem.TatuagemCriacaoDto;
@@ -17,7 +14,7 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuage
 import java.net.URI;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/tatuagens")
 @RequiredArgsConstructor
 public class TatuagemController {

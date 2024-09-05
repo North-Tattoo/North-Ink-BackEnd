@@ -2,7 +2,6 @@ package school.sptech.northink.projetonorthink.api.controller.usuario;
 
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.security.PermitAll;
@@ -13,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
-import school.sptech.northink.projetonorthink.api.util.GerenciadorDeArquivoCSV;
-import school.sptech.northink.projetonorthink.api.util.ListaObj;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.UsuarioService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioLoginDto;
@@ -22,7 +19,6 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.autenticaca
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,10 +49,10 @@ public class UsuarioController {
         return ResponseEntity.status(200).body(usuarioToken);
     }
 
-    // listar todos os usuarios
+    // listarUsuarios todos os usuarios
     @Operation(summary = "Listar todos os usuários")
     @GetMapping
-    public ResponseEntity<List<UsuarioListagemDto>>   listar() {
+    public ResponseEntity<List<UsuarioListagemDto>> listarUsuarios() {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuarios());
     }
 

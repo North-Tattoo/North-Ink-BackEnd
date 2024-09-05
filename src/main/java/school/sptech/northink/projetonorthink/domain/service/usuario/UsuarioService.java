@@ -116,7 +116,7 @@ public class UsuarioService {
     }
 
     /**
-     * Método para listar todos os usuários.
+     * Método para listarUsuarios todos os usuários.
      * Ele busca todos os usuários no repositório de usuários e mapeia cada usuário para um DTO de listagem de usuários.
      *
      * @return A lista de DTOs de listagem de usuários.
@@ -131,7 +131,7 @@ public class UsuarioService {
     }
 
     /**
-     * Método para listar um usuário por ID.
+     * Método para listarUsuarios um usuário por ID.
      * Ele busca o usuário com o ID fornecido no repositório de usuários e mapeia o usuário para um DTO de listagem de usuários.
      *
      * @param id O ID do usuário a ser listado.
