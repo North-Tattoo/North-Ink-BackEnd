@@ -83,7 +83,12 @@ public class EstiloService {
      * @return O `Estilo` mais cadastrado.
      */
     public Estilo findEstiloMaisCadastrado() {
-        return estiloRepository.findEstiloMaisCadastrado();
+        List<Estilo> estilos = estiloRepository.findEstiloMaisCadastrado();
+        if (!estilos.isEmpty()) {
+            return estilos.get(0);
+        } else {
+            throw new RuntimeException("Não há estilos cadastrados");
+        }
     }
 
     /**
