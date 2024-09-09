@@ -1,12 +1,15 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository;
 import school.sptech.northink.projetonorthink.domain.repository.UsuarioRepository;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.*;
+import org.springframework.data.domain.Pageable;
+// remove or comment out: import java.awt.print.Pageable;
 
 import java.util.List;
 
@@ -97,6 +100,7 @@ public class EstiloService {
      * @return Uma lista dos três principais `EstiloCountDto`.
      */
     public List<EstiloCountDto> findTop3Estilos() {
-        return estiloRepository.findTop3Estilos();
+        Pageable topThree = PageRequest.of(0, 3);
+        return estiloRepository.findTop3Estilos(topThree);
     }
 }
