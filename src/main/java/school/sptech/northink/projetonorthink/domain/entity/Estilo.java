@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,8 +22,7 @@ public class Estilo {
     private Long id;
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "fkUsuario")
+    @ManyToMany(mappedBy = "estilos")
     @JsonBackReference
-    private Usuario fkUsuario;
+    private Set<Usuario> usuarios = new HashSet<>();
 }

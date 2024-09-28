@@ -57,6 +57,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/error/**"),
             new AntPathRequestMatcher("/usuarios/login/**"),
             new AntPathRequestMatcher("/usuarios/logout/**"),
+            new AntPathRequestMatcher("/usuarios/buscar/**"),
             new AntPathRequestMatcher("/usuarios/**", HttpMethod.POST.name())
     };
 

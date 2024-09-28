@@ -6,7 +6,9 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.autenticaca
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloListagemDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloMapper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UsuarioMapper {
@@ -21,13 +23,13 @@ public class UsuarioMapper {
         usuario.setEmail(usuarioCriacaoDto.getEmail());
         usuario.setSenha(usuarioCriacaoDto.getSenha());
         usuario.setResumo(usuarioCriacaoDto.getResumo());
-        List<Estilo> estilos = usuarioCriacaoDto.getEstilos().stream()
+        Set<Estilo> estilos = usuarioCriacaoDto.getEstilos().stream()
                 .map(estiloDto -> {
                     Estilo estilo = new Estilo();
                     estilo.setNome(estiloDto.getNome());
                     return estilo;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         usuario.setEstilos(estilos);
 
         return usuario;
@@ -60,7 +62,8 @@ public class UsuarioMapper {
         usuarioListagemDto.setAnosExperiencia(usuario.getAnosExperiencia());
         usuarioListagemDto.setPrecoMinimo(usuario.getPrecoMinimo());
         usuarioListagemDto.setInstagram(usuario.getInstagram());
-        List<EstiloListagemDto> estilosListagemDto = EstiloMapper.toDto(usuario.getEstilos());
+        List<Estilo> estilos = new ArrayList<>(usuario.getEstilos());
+        List<EstiloListagemDto> estilosListagemDto = EstiloMapper.toDto(estilos);
         usuarioListagemDto.setEstilos(estilosListagemDto);
         usuarioListagemDto.setTatuagens(usuario.getTatuagens());
 
@@ -75,7 +78,8 @@ public class UsuarioMapper {
         usuarioListagemGeralDto.setNome(usuario.getNome());
         usuarioListagemGeralDto.setSobrenome(usuario.getSobrenome());
         usuarioListagemGeralDto.setPrecoMin(usuario.getPrecoMinimo());
-        usuarioListagemGeralDto.setEstilos(usuario.getEstilos());
+        List<Estilo> estilos = new ArrayList<>(usuario.getEstilos());
+        usuarioListagemGeralDto.setEstilos(estilos);
         usuarioListagemGeralDto.setEstudio(usuario.getEstudio());
 
         return usuarioListagemGeralDto;
@@ -125,7 +129,8 @@ public class UsuarioMapper {
         usuarioPortfolioDto.setResumo(usuario.getResumo());
         usuarioPortfolioDto.setTelefone(usuario.getCelular());
         usuarioPortfolioDto.setInstagram(usuario.getInstagram());
-        usuarioPortfolioDto.setEstilos(usuario.getEstilos());
+        List<Estilo> estilos = new ArrayList<>(usuario.getEstilos());
+        usuarioPortfolioDto.setEstilos(estilos);
         usuarioPortfolioDto.setEstudio(usuario.getEstudio());
 
         return usuarioPortfolioDto;
@@ -158,7 +163,7 @@ public class UsuarioMapper {
     }
 
     // Método necessário para receber os dados do front-end e atualizar o portfólio do usuário
-    // Daniel Zapatta 28/08/2024
+// Daniel Zapatta 28/08/2024
     public static Usuario atualizarUsuarioPortfolio(Usuario usuarioExistente, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
         // Atualize os campos do usuário existente com base nos dados do DTO de atualização
         usuarioExistente.setId(usuarioAtualizacaoPortfolioDto.getId());
@@ -170,14 +175,14 @@ public class UsuarioMapper {
         // Você pode usar o método map do Stream para isso, semelhante ao que você fez no método of
         List<Estilo> estilosDto = usuarioAtualizacaoPortfolioDto.getEstilos();
         if (estilosDto != null) {
-            List<Estilo> estilos = estilosDto.stream()
+            Set<Estilo> estilos = estilosDto.stream()
                     .map(estiloDto -> {
                         Estilo estilo = new Estilo();
                         estilo.setNome(estiloDto.getNome());
                         // Aqui você pode definir os outros campos do Estilo se necessário
                         return estilo;
                     })
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
             usuarioExistente.setEstilos(estilos);
         }
 

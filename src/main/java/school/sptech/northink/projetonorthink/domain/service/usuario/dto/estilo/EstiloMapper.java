@@ -40,7 +40,6 @@ public class EstiloMapper {
 
         Estilo estilo = new Estilo();
         estilo.setNome(dto.getNome());
-        estilo.setFkUsuario(usuario); // associa o estilo ao usuário
 
         return estilo;
     }

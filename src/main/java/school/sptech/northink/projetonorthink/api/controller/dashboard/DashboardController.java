@@ -24,8 +24,8 @@ public class DashboardController {
         return dashboardService.getTop3Estilos();
     }
 
-    @GetMapping("/estiloMaisCadastrado")
+    /*@GetMapping("/estiloMaisCadastrado")
     public Estilo getEstiloMaisCadastrado() {
         return dashboardService.findEstiloMaisCadastrado();
-    }
+    }*/
 }

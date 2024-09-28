@@ -85,14 +85,14 @@ public class EstiloService {
      *
      * @return O `Estilo` mais cadastrado.
      */
-    public Estilo findEstiloMaisCadastrado() {
+    /*public Estilo findEstiloMaisCadastrado() {
         List<Estilo> estilos = estiloRepository.findEstiloMaisCadastrado();
         if (!estilos.isEmpty()) {
             return estilos.get(0);
         } else {
             throw new RuntimeException("Não há estilos cadastrados");
         }
-    }
+    }*/
 
     /**
      * Este método retorna os três principais estilos.

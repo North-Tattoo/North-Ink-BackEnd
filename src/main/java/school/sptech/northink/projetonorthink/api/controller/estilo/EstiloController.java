@@ -17,12 +17,12 @@ public class EstiloController {
     @Autowired
     private EstiloService estiloService;
 
-    @GetMapping("/mais-cadastrado")
+    /*@GetMapping("/mais-cadastrado")
     public ResponseEntity<Estilo> findEstiloMaisCadastrado() {
         Estilo estilo = estiloService.findEstiloMaisCadastrado();
 
         return new ResponseEntity<>(estilo, HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping
     public ResponseEntity<List<EstiloListagemDto>> listarTodos() {
