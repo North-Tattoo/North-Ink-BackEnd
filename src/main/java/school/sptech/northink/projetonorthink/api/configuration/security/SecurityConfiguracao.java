@@ -55,9 +55,11 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/h2-console/**/**"),
             new AntPathRequestMatcher("/error/**"),
-            new AntPathRequestMatcher("/usuarios/login/**"),
-            new AntPathRequestMatcher("/usuarios/logout/**"),
-            new AntPathRequestMatcher("/usuarios/**", HttpMethod.POST.name())
+            new AntPathRequestMatcher("/api/usuarios/**"),  // Adicione esta linha
+            new AntPathRequestMatcher("/api/usuarios/login/**"),
+            new AntPathRequestMatcher("/api/usuarios/logout/**"),
+            new AntPathRequestMatcher("/api/usuarios/buscar/**"),
+            //new AntPathRequestMatcher("/usuarios/**", HttpMethod.POST.name())
     };
 
     @Bean

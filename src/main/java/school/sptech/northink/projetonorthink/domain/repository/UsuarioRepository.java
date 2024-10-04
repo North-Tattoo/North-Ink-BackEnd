@@ -24,6 +24,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query("SELECT u FROM Usuario u JOIN FETCH u.estilos")
     List<Usuario> findAllAndFetchEstilosEagerly();
 
-
+    @Query("SELECT u FROM Usuario u JOIN u.estudio e JOIN e.endereco ed WHERE " +
+            "(COALESCE(:nome, '') = '' OR LOWER(u.nome) LIKE LOWER(CONCAT('%', :nome, '%'))) AND " +
+            "(COALESCE(:cidade, '') = '' OR ed.cidade = :cidade) AND " +
+            "(COALESCE(:precoMinimo, '') = '' OR u.precoMinimo >= :precoMinimo)")
+    List<Usuario> findUsuariosByNomeAndCidadeAndPrecoMinimo(
+            @Param("nome") String nome,
+            @Param("cidade") String cidade,
+            @Param("precoMinimo") Double precoMinimo);
 
 }

@@ -1,4 +1,4 @@
-package school.sptech.northink.projetonorthink.api.controller.usuario;
+package school.sptech.northink.projetonorthink.api.controller.api.usuario;
 
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,25 +12,37 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
+import school.sptech.northink.projetonorthink.api.controller.api.ApiController;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.UsuarioService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioLoginDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.autenticacao.dto.UsuarioTokenDto;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
+import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 @Tag(name = "Usuários", description = "Operações relacionadas aos usuários")
-public class UsuarioController {
+    public class UsuarioController extends ApiController {
 
     // Nessa classe está todas as requisições que o tatuador fará
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private EstiloRepository estiloRepository;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     // criar usuario
     @Operation(summary = "Criar um novo usuário")
@@ -43,6 +55,7 @@ public class UsuarioController {
 
     // logar usuario
     @Operation(summary = "Autenticar usuário e obter token JWT")
+    @PermitAll
     @PostMapping("/login")
     public ResponseEntity<UsuarioTokenDto> login(@RequestBody UsuarioLoginDto usuarioLoginDto) {
         UsuarioTokenDto usuarioToken = this.usuarioService.autenticar(usuarioLoginDto);
@@ -155,5 +168,24 @@ public class UsuarioController {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Error uploading files.");
         }
+    }
+
+    @PermitAll
+    @GetMapping("/buscar")
+    public List<Usuario> buscar(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String cidade,
+            @RequestParam(required = false) Double precoMinimo,
+            @RequestParam(required = false) String estilos
+    ) {
+        List<Estilo> listaEstilos = null;
+        if (estilos != null) {
+            listaEstilos = Arrays.stream(estilos.split(","))
+                    .map(nomeEstilo -> estiloRepository.findByNome(nomeEstilo))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .collect(Collectors.toList());
+        }
+        return usuarioService.findByNomeAndSobrenomeAndPrecoMinAndCidadeAndEstilosIn(nome, cidade, precoMinimo, listaEstilos);
     }
 }

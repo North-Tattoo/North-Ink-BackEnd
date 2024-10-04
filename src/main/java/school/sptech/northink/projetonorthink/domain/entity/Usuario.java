@@ -12,12 +12,15 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
@@ -71,10 +74,12 @@ public class Usuario {
 //    @Size(min = 1, max = 500)'
     private String descricao;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "fkUsuario")
-    @Fetch(FetchMode.JOIN)
-    @JsonManagedReference
-    private List<Estilo> estilos = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_estilo",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "estilo_id"))
+    private Set<Estilo> estilos = new HashSet<>();
 
     @OneToMany(mappedBy = "fkUsuario")
     private List<Tatuagem> tatuagens;

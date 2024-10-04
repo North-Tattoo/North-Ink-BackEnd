@@ -1,6 +1,7 @@
 package school.sptech.northink.projetonorthink.domain.service.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import school.sptech.northink.projetonorthink.api.configuration.security.jwt.GerenciadorTokenJWT;
 import school.sptech.northink.projetonorthink.api.util.GerenciadorDeArquivoCSV;
 import school.sptech.northink.projetonorthink.api.util.ListaObj;
+import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository;
 import school.sptech.northink.projetonorthink.domain.repository.UsuarioRepository;
@@ -54,6 +56,8 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+
+
     /**
      * Método para criar um novo usuário.
      * Ele primeiro mapeia o DTO de criação do usuário para uma entidade de usuário, criptografa a senha do usuário,
@@ -66,14 +70,18 @@ public class UsuarioService {
         String senhaCriptografada = passwordEncoder.encode(novoUsuario.getSenha());
         novoUsuario.setSenha(senhaCriptografada);
 
-        // Salva o usuário antes de salvar os estilos
-        Usuario usuarioSalvo = this.usuarioRepository.save(novoUsuario);
-
         // Salva cada estilo individualmente
         novoUsuario.getEstilos().forEach(estilo -> {
-            estilo.setFkUsuario(usuarioSalvo);
-            estiloRepository.save(estilo);
+            if (estilo.getId() == null) { // Verifica se o estilo já foi persistido
+                estiloRepository.save(estilo);
+            }
         });
+
+        // Salva o usuário depois de salvar os estilos
+        Usuario usuarioSalvo = this.usuarioRepository.save(novoUsuario);
+
+        usuarioSalvo.setEstilos(novoUsuario.getEstilos()); // Define a lista de estilos do usuário
+        usuarioRepository.save(usuarioSalvo); // Salva o usuário com a lista de estilos atualizada
     }
 
     /**
@@ -342,6 +350,31 @@ public class UsuarioService {
 //            }
 //        }
         return fileUrls;
+    }
+
+    // Filtros
+    /*public List<Usuario> filtroBuscaUsuarios(UsuarioFiltrosDto filter) {
+        return usuarioRepository.findAllByNomeAndSobreNomeAndPrecoMinAndEstilosInAndCidade(
+                filter.getNome(),
+                filter.getSobreNome(),
+                filter.getPrecoMin(),
+                filter.getEstilos(),
+                filter.getCidade()
+        );
+    }*/
+
+    public List<Usuario> findByNomeAndSobrenomeAndPrecoMinAndCidadeAndEstilosIn(
+            String nome,
+            String cidade,
+            Double precoMinimo,
+            List<Estilo> estilos) {
+        List<Usuario> usuarios = usuarioRepository.findUsuariosByNomeAndCidadeAndPrecoMinimo(nome, cidade, precoMinimo);
+        if (estilos != null && !estilos.isEmpty()) {
+            usuarios = usuarios.stream()
+                    .filter(u -> u.getEstilos().stream().anyMatch(estilos::contains))
+                    .collect(Collectors.toList());
+        }
+        return usuarios;
     }
 }
 

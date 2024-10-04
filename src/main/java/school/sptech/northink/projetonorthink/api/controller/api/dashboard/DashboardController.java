@@ -1,8 +1,9 @@
-package school.sptech.northink.projetonorthink.api.controller.dashboard;
+package school.sptech.northink.projetonorthink.api.controller.api.dashboard;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import school.sptech.northink.projetonorthink.api.controller.api.ApiController;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.service.usuario.DashboardService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloCountDto;
@@ -10,8 +11,8 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.
 import java.util.List;
 
 @RestController
-@RequestMapping("/dashboard")
-public class DashboardController {
+@RequestMapping("/api/dashboard")
+public class DashboardController extends ApiController {
 
     private final DashboardService dashboardService;
 
@@ -24,8 +25,8 @@ public class DashboardController {
         return dashboardService.getTop3Estilos();
     }
 
-    @GetMapping("/estiloMaisCadastrado")
+    /*@GetMapping("/estiloMaisCadastrado")
     public Estilo getEstiloMaisCadastrado() {
         return dashboardService.findEstiloMaisCadastrado();
-    }
+    }*/
 }

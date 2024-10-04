@@ -31,7 +31,8 @@ public class DashboardService {
      *
      * @return O `Estilo` que é o mais cadastrado.
      */
-    public Estilo findEstiloMaisCadastrado (){
+    /*public Estilo findEstiloMaisCadastrado (){
         return estiloService.findEstiloMaisCadastrado();
     }
+    */
 }

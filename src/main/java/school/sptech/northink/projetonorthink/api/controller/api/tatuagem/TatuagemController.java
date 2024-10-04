@@ -1,10 +1,11 @@
-package school.sptech.northink.projetonorthink.api.controller.tatuagem;
+package school.sptech.northink.projetonorthink.api.controller.api.tatuagem;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import school.sptech.northink.projetonorthink.api.controller.api.ApiController;
 import school.sptech.northink.projetonorthink.domain.entity.Tatuagem;
 import school.sptech.northink.projetonorthink.domain.service.usuario.TatuagemService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.tatuagem.TatuagemCriacaoDto;
@@ -15,9 +16,9 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tatuagens")
+@RequestMapping("/api/tatuagens")
 @RequiredArgsConstructor
-public class TatuagemController {
+public class TatuagemController extends ApiController {
 
     private TatuagemService service;
 
