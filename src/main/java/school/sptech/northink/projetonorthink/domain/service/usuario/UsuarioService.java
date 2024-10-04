@@ -363,18 +363,21 @@ public class UsuarioService {
         );
     }*/
 
-    public List<Usuario> findByNomeAndSobrenomeAndPrecoMinAndCidadeAndEstilosIn(
+    public List<UsuarioFiltrosDto> findByNomeAndSobrenomeAndPrecoMinAndCidadeAndEstilosIn(
             String nome,
             String cidade,
             Double precoMinimo,
             List<Estilo> estilos) {
         List<Usuario> usuarios = usuarioRepository.findUsuariosByNomeAndCidadeAndPrecoMinimo(nome, cidade, precoMinimo);
+        List<UsuarioFiltrosDto> usuarioFiltrosDtos = usuarios.stream()
+                .map(UsuarioFiltrosDto::from)
+                .collect(Collectors.toList());
         if (estilos != null && !estilos.isEmpty()) {
-            usuarios = usuarios.stream()
+            usuarioFiltrosDtos = usuarioFiltrosDtos.stream()
                     .filter(u -> u.getEstilos().stream().anyMatch(estilos::contains))
                     .collect(Collectors.toList());
         }
-        return usuarios;
+        return usuarioFiltrosDtos;
     }
 }
 

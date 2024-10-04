@@ -172,7 +172,7 @@ import java.util.stream.Collectors;
 
     @PermitAll
     @GetMapping("/buscar")
-    public List<Usuario> buscar(
+    public List<UsuarioFiltrosDto> buscar(
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String cidade,
             @RequestParam(required = false) Double precoMinimo,
