@@ -9,7 +9,6 @@ import java.util.List;
 public class UsuarioFiltrosDto {
 
     private String nome;
-    private String sobreNome;
     private Double precoMin;
     private List<Estilo> estilos;
     private String cidade;

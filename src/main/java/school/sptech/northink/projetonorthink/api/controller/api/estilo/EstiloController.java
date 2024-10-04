@@ -1,9 +1,10 @@
-package school.sptech.northink.projetonorthink.api.controller.estilo;
+package school.sptech.northink.projetonorthink.api.controller.api.estilo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.sptech.northink.projetonorthink.api.controller.api.ApiController;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.service.usuario.EstiloService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.EstiloListagemDto;
@@ -11,8 +12,8 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.dto.estilo.
 import java.util.List;
 
 @RestController
-@RequestMapping("/estilos")
-public class EstiloController {
+@RequestMapping("/api/estilos")
+public class EstiloController extends ApiController {
 
     @Autowired
     private EstiloService estiloService;

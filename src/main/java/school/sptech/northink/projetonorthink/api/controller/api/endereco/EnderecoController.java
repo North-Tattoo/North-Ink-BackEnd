@@ -1,8 +1,9 @@
-package school.sptech.northink.projetonorthink.api.controller.endereco;
+package school.sptech.northink.projetonorthink.api.controller.api.endereco;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.sptech.northink.projetonorthink.api.controller.api.ApiController;
 import school.sptech.northink.projetonorthink.domain.entity.Endereco;
 import school.sptech.northink.projetonorthink.domain.service.usuario.EnderecoService;
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.endereco.EnderecoCriacaoDto;
@@ -11,8 +12,8 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.dto.enderec
 import java.util.List;
 
 @RestController
-@RequestMapping("/enderecos")
-public class EnderecoController {
+@RequestMapping("/api/enderecos")
+public class EnderecoController extends ApiController {
 
     @Autowired
     private EnderecoService enderecoService;

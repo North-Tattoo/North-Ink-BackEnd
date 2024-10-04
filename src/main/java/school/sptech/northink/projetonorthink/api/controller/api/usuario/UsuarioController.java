@@ -1,4 +1,4 @@
-package school.sptech.northink.projetonorthink.api.controller.usuario;
+package school.sptech.northink.projetonorthink.api.controller.api.usuario;
 
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
+import school.sptech.northink.projetonorthink.api.controller.api.ApiController;
 import school.sptech.northink.projetonorthink.domain.entity.Estilo;
 import school.sptech.northink.projetonorthink.domain.entity.Usuario;
 import school.sptech.northink.projetonorthink.domain.service.usuario.UsuarioService;
@@ -28,9 +29,9 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 @Tag(name = "Usuários", description = "Operações relacionadas aos usuários")
-public class UsuarioController {
+    public class UsuarioController extends ApiController {
 
     // Nessa classe está todas as requisições que o tatuador fará
     @Autowired
@@ -54,6 +55,7 @@ public class UsuarioController {
 
     // logar usuario
     @Operation(summary = "Autenticar usuário e obter token JWT")
+    @PermitAll
     @PostMapping("/login")
     public ResponseEntity<UsuarioTokenDto> login(@RequestBody UsuarioLoginDto usuarioLoginDto) {
         UsuarioTokenDto usuarioToken = this.usuarioService.autenticar(usuarioLoginDto);
@@ -168,6 +170,7 @@ public class UsuarioController {
         }
     }
 
+    @PermitAll
     @GetMapping("/buscar")
     public List<Usuario> buscar(
             @RequestParam(required = false) String nome,
