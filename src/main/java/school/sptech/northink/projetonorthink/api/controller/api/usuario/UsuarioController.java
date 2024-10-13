@@ -188,4 +188,10 @@ import java.util.stream.Collectors;
         }
         return usuarioService.findByNomeAndSobrenomeAndPrecoMinAndCidadeAndEstilosIn(nome, cidade, precoMinimo, listaEstilos);
     }
+
+    @PutMapping("/{id}/assinatura")
+    public ResponseEntity<Void> atualizarAssinatura(@PathVariable Long id, @RequestParam boolean assinante) {
+        usuarioService.atualizarAssinatura(id, assinante);
+        return ResponseEntity.ok().build();
+    }
 }
