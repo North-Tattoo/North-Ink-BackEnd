@@ -40,8 +40,11 @@ public class UsuarioMapper {
         UsuarioTokenDto usuarioTokenDto = new UsuarioTokenDto();
 
         usuarioTokenDto.setUserId(usuario.getId());
-        usuarioTokenDto.setEmail(usuario.getEmail());
         usuarioTokenDto.setNome(usuario.getNome());
+        usuarioTokenDto.setSobrenome(usuario.getSobrenome()); // Novo campo
+        usuarioTokenDto.setCpf(usuario.getCpf()); // Novo campo
+        usuarioTokenDto.setEmail(usuario.getEmail());
+        usuarioTokenDto.setAssinante(usuario.getAssinante() != null ? usuario.getAssinante():false); // Novo campo
         usuarioTokenDto.setToken(token);
 
         return usuarioTokenDto;

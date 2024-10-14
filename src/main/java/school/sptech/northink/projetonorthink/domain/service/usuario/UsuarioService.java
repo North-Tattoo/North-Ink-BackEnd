@@ -379,6 +379,13 @@ public class UsuarioService {
         }
         return usuarioFiltrosDtos;
     }
+
+    // Assinatura do usuário
+    public void atualizarAssinatura(Long userId, boolean assinante) {
+        Usuario usuario = usuarioRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        usuario.setAssinante(assinante);
+        usuarioRepository.save(usuario);
+    }
 }
 
 

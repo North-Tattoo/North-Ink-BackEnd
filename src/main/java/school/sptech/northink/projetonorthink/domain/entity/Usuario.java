@@ -74,6 +74,8 @@ public class Usuario {
 //    @Size(min = 1, max = 500)'
     private String descricao;
 
+    private Boolean assinante = false;
+
     @ManyToMany
     @JoinTable(
             name = "usuario_estilo",
