@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.northink.projetonorthink.api.configuration.security.jwt.GerenciadorTokenJWT;
@@ -23,10 +24,7 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.autenticaca
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -209,24 +207,34 @@ public class UsuarioService {
      * Ele busca o usuário com o ID fornecido no repositório de usuários, atualiza o portfólio do usuário com base no DTO de atualização do portfólio,
      * e salva o usuário atualizado no repositório de usuários.
      *
-     * @param id O ID do usuário cujo portfólio deve ser atualizado.
+     * @paramid O ID do usuário cujo portfólio deve ser atualizado.
      * @param usuarioAtualizacaoPortfolioDto O DTO contendo as informações para a atualização do portfólio do usuário.
      * @return O usuário com o portfólio atualizado.
      */
-    public Usuario atualizarUsuarioPortfolio(Long id, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
-        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+    @Transactional
+    public Usuario atualizarUsuarioPortfolio(Long userId, UsuarioAtualizaçãoPortfolioDto usuarioAtualizacaoPortfolioDto) {
+        Usuario usuarioExistente = usuarioRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        if (optionalUsuario.isPresent()) {
-            Usuario usuario = optionalUsuario.get();
-
-            Usuario usuarioAtualizado = UsuarioMapper.atualizarUsuarioPortfolio(usuario, usuarioAtualizacaoPortfolioDto);
-
-            Usuario usuarioSalvo = usuarioRepository.save(usuarioAtualizado);
-
-            return usuarioSalvo;
-        } else {
-            throw new NoSuchElementException("Usuário não encontrado com o ID: " + id);
+        // Atualize a lista de estilos
+        Set<Estilo> estilos = new HashSet<>();
+        for (Estilo estiloDto : usuarioAtualizacaoPortfolioDto.getEstilos()) {
+            Estilo estilo = estiloRepository.findByNome(estiloDto.getNome())
+                    .orElseGet(() -> {
+                        Estilo novoEstilo = new Estilo();
+                        novoEstilo.setNome(estiloDto.getNome());
+                        return estiloRepository.save(novoEstilo);
+                    });
+            estilos.add(estilo);
         }
+        usuarioExistente.setEstilos(estilos);
+
+        // Atualize outros campos
+        usuarioExistente.setPrecoMinimo(usuarioAtualizacaoPortfolioDto.getPrecoMin());
+        usuarioExistente.setAnosExperiencia(usuarioAtualizacaoPortfolioDto.getAnosExperiencia());
+        usuarioExistente.setResumo(usuarioAtualizacaoPortfolioDto.getResumo());
+        usuarioExistente.setInstagram(usuarioAtualizacaoPortfolioDto.getInstagram());
+
+        return usuarioRepository.save(usuarioExistente);
     }
 
     /**
