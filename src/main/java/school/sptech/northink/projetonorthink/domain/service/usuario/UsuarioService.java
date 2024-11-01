@@ -24,6 +24,8 @@ import school.sptech.northink.projetonorthink.domain.service.usuario.autenticaca
 import school.sptech.northink.projetonorthink.domain.service.usuario.dto.usuario.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -392,7 +394,31 @@ public class UsuarioService {
     public void atualizarAssinatura(Long userId, boolean assinante) {
         Usuario usuario = usuarioRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         usuario.setAssinante(assinante);
+        if (assinante) {
+            usuario.setDataAssinatura(LocalDate.now());
+        } else {
+            usuario.setDataAssinatura(null);
+        }
         usuarioRepository.save(usuario);
+    }
+
+    public Map<String, Object> getAssinaturaInfo(Long userId) {
+        Usuario usuario = usuarioRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Map<String, Object> assinaturaInfo = new HashMap<>();
+        assinaturaInfo.put("assinante", usuario.getAssinante());
+        if (usuario.getAssinante() && usuario.getDataAssinatura() != null) {
+            long diasRestantes = ChronoUnit.DAYS.between(LocalDate.now(), usuario.getDataAssinatura().plusDays(30));
+            if (diasRestantes <= 0) {
+                usuario.setAssinante(false);
+                usuario.setDataAssinatura(null);
+                usuarioRepository.save(usuario);
+                diasRestantes = 0;
+            }
+            assinaturaInfo.put("diasRestantes", diasRestantes);
+        } else {
+            assinaturaInfo.put("diasRestantes", 0);
+        }
+        return assinaturaInfo;
     }
 }
 
