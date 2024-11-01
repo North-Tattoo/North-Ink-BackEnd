@@ -11,6 +11,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -76,6 +77,8 @@ public class Usuario {
 
     private Boolean assinante = false;
 
+    private LocalDate dataAssinatura;
+
     @ManyToMany
     @JoinTable(
             name = "usuario_estilo",
@@ -86,8 +89,7 @@ public class Usuario {
     @OneToMany(mappedBy = "fkUsuario")
     private List<Tatuagem> tatuagens;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fkEstudio")
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Estudio estudio;
 

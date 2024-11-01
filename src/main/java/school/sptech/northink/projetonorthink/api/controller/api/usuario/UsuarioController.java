@@ -24,6 +24,7 @@ import school.sptech.northink.projetonorthink.domain.repository.EstiloRepository
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -187,6 +188,12 @@ import java.util.stream.Collectors;
                     .collect(Collectors.toList());
         }
         return usuarioService.findByNomeAndSobrenomeAndPrecoMinAndCidadeAndEstilosIn(nome, cidade, precoMinimo, listaEstilos);
+    }
+
+    @GetMapping("/{id}/assinatura")
+    public ResponseEntity<Map<String, Object>> getAssinaturaInfo(@PathVariable Long id) {
+        Map<String, Object> assinaturaInfo = usuarioService.getAssinaturaInfo(id);
+        return ResponseEntity.ok(assinaturaInfo);
     }
 
     @PutMapping("/{id}/assinatura")
