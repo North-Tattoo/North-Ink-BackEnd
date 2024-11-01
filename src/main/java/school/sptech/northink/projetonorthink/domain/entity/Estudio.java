@@ -22,6 +22,7 @@ public class Estudio {
     private String descricao;
 
     @OneToOne
+    @JoinColumn(name = "fkUsuario")
     @JsonBackReference
     private Usuario usuario;
 
